@@ -15,9 +15,9 @@ export const Register = () => {
                 
 
                 <label htmlFor="Setor">Setor</label>
-                <input type="text" name="Setor" id="Setor" placeholder="Seu Setor" />
+                <input type="text" name="Setor" id="Setor" placeholder="Pedagogico" />
                 <label htmlFor="Cargo">Cargo</label>
-                <input type="text" name="Cargo" id="Cargo" placeholder="Seu Cargo" />
+                <input type="text" name="Cargo" id="Cargo" placeholder="Professor" />
                 
                 <label htmlFor="email">Email</label>
                 <input type="email" name="email" id="email" placeholder="Seu email" />
