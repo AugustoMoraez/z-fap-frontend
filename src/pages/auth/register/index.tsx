@@ -41,14 +41,14 @@ export const Register = () => {
                 {
                     data ? 
                     data.map((option,key) => (
-                        <>
-                            <Option key={key} value={key}>
-                                {option.name}
-                            </Option>
-                        </>
-                        ))
-                        : null
-                    }
+                        
+                        <Option key={option.id} value={key}>
+                            {option.name}
+                        </Option>
+                        
+                    ))
+                    : null
+                }
                 </Select>
             
 
@@ -61,7 +61,7 @@ export const Register = () => {
                 {
                     data ?
                     data[selectedOption ? selectedOption : 0].positions.map((option,key)=>(
-                        <Option key={key} value={key}>
+                        <Option key={option} value={key}>
                             {option}
                         </Option>
                     ))
