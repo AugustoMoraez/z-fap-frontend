@@ -26,19 +26,9 @@ export const Form = styled.form`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    h2{
-        font-size: 30px;
-        margin:20px;
-    }
+    
     input{
-        width: 100%;
-        max-width: 350px;
-        height: 40px;
-        margin-bottom: 10px;
-
-        border-radius: 5px;
-        border: 1px solid royalblue;
-        padding: 5px;
+        
     }
     .button{
         color:#fff;
@@ -50,12 +40,7 @@ export const Form = styled.form`
             opacity: 0.8;
         }
     }
-    label{
-        width: 100%;
-        max-width: 350px;
-        margin-left: 10px;
-        font-weight: bold;
-    }
+   
     p{
         margin-top: 30px;
     }
@@ -65,3 +50,40 @@ export const Form = styled.form`
     }
 
 `;
+export const Title = styled.h2`
+    font-size: 30px;
+    margin:20px;
+`;
+
+export const Input = styled.input`
+    width: 100%;
+    max-width: 350px;
+    height: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid royalblue;
+    padding: 5px;
+
+`;
+
+
+export const Label = styled.label`
+    width: 100%;
+    max-width: 350px;
+    margin-left: 10px;
+    font-weight: bold;
+`;
+
+export const Select = styled.select`
+    width: 100%;
+    max-width: 350px;
+    height: 40px;
+    margin-bottom: 10px;
+
+    border-radius: 5px;
+    border: 1px solid royalblue;
+    padding: 5px;
+
+
+`;
+export const Option = styled.option``;
