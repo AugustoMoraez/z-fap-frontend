@@ -1,48 +1,92 @@
 import { useState } from "react";
 import { useFetch } from "../../../hooks/useFetch";
 import { sector } from "../../../types";
-import { Container, Form,Label,Select,Input,Title,Option } from "./stylet"
-import { useNavigate } from "react-router-dom"
+import { Container, Form,Label,Select,Input,Title,Option,Menssage } from "./stylet";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { userRegisterSchema, userRegisterSchemaType } from "../../../libs/zodSchemas";
+import {zodResolver} from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 
 
 
 export const Register = () => {
-    const [selectedOption, setSelectedOption] = useState<number|null>(null);
-    const [selectedPosition, setSelectedPosition] = useState<string>("");
-
-    const { data } = useFetch<sector[]>("/sector")
     const nav = useNavigate();
+    const [name, setName] = useState<string>("");
+    const [selectedSector, setSelectedSector] = useState<string>("");
+    const [sectorPositions, setSectorPositions] = useState<string[]>([""]);
+    const [selectedPosition, setSelectedPosition] = useState<string>("");
+    const { data } = useFetch<sector[]>("/sector")
     
+    useEffect(()=>{
+        if(data){
+            const sector = data.filter(sector => sector.id === selectedSector)
+            setSectorPositions(sector[0].positions)
+        }else{
+            setSectorPositions(["Selecione primeiro o setor"])
+        }
+    },[selectedSector])
+
+
+
+
+
+    const{ 
+        register, 
+        handleSubmit,
+        formState:{errors}
+        } = useForm<userRegisterSchemaType>({
+            resolver:zodResolver(userRegisterSchema),
+        });
+    
+    const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setName(event.target.value);
+    };
+
     const handleChangeSector = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedOption(parseInt(event.target.value));
-        
+        setSelectedSector(event.target.value);
     };
     
     const handleChangePosition = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedPosition(event.target.value);
         
     };
+    const handleRegisterUser = (data:userRegisterSchemaType) => {
+        console.log(data)
+    }
     
-
     return (
         <Container>
-            <Form>
+            <Form onSubmit={handleSubmit(handleRegisterUser)}>
                 <Title>Cadastre-se</Title>
+
                 <Label htmlFor="name">Nome</Label>
-                <Input type="text" name="name" id="name" placeholder="ex: Marcos Zayrão L. Pinheiro" />
+                <Input 
+                {...register("name")}
+                type="text" 
+                name="name" 
+                id="name" 
+                placeholder="ex: Marcos Zayrão L. Pinheiro" 
+                value={name}
+                onChange={handleChangeName}
+                />
+                {errors.name && <Menssage>Dados inválidos</Menssage>}
 
 
                 <Label htmlFor="sector-options">Setor</Label>
                 <Select 
                 id="sector-options" 
-                value={selectedOption?.toString()} 
+                value={selectedSector} 
+                {...register("sectorID")}
                 onChange={handleChangeSector}
+                required
                 >
+                <option value={"selecione..."}>Selecione...</option>
                 {
                     data ? 
                     data.map((option,key) => (
                         
-                        <Option key={option.id} value={key}>
+                        <Option key={key} value={option.id}>
                             {option.name}
                         </Option>
                         
@@ -56,12 +100,16 @@ export const Register = () => {
                 <Select 
                 id="position-options" 
                 value={selectedPosition} 
+                required
+                {...register("position")}
                 onChange={handleChangePosition}
                 >
+                <option value={"selecione..."}>Selecione...</option>
                 {
-                    data ?
-                    data[selectedOption ? selectedOption : 0].positions.map((option,key)=>(
-                        <Option key={option} value={key}>
+
+                    sectorPositions ?
+                    sectorPositions.map((option,key)=>(
+                        <Option key={key} value={option}>
                             {option}
                         </Option>
                     ))
@@ -72,18 +120,58 @@ export const Register = () => {
 
                 
                 <Label htmlFor="email">Email</Label>
-                <Input type="email" name="email" id="email" placeholder="Seu email" />
-                <Label htmlFor="email-repeat">Confirme o email</Label>
-                <Input type="email" name="email-repeat" id="email-repeat" placeholder="Confirme o email" />
+                <Input 
+                {...register("email")}
+                type="email" 
+                name="email" 
+                id="email" 
+                placeholder="Seu email" 
+                />
+                {errors.email && <Menssage>Dados inválidos</Menssage>}
+
+
+                <Label htmlFor="email_repeat">Confirme o email</Label>
+                <Input 
+                type="email" 
+                {...register("email_repeat")}
+                name="email_repeat" 
+                id="email_repeat" 
+                placeholder="Confirme o email" 
+                />
+                {errors.email_repeat && <Menssage>Dados inválidos</Menssage>}
 
 
                 <Label htmlFor="password">Senha</Label>
-                <Input type="password" name="password" id="password" placeholder="********" />
-                <Label htmlFor="password-repeat">Confirmar senha</Label>
-                <Input type="password" name="password-repeat" id="password-repeat" placeholder="********" /> 
+                <Input
+                {...register("password")} 
+                type="password" 
+                name="password" 
+                id="password" 
+                placeholder="********" 
+                minLength={8}
+                maxLength={8}
+                />
+                {errors.password && <Menssage>Dados inválidos</Menssage>}
+
+
+                <Label htmlFor="password_repeat">Confirmar senha</Label>
+                <Input 
+                {...register("password_repeat")}
+                type="password" 
+                name="password_repeat" 
+                id="password_repeat" 
+                placeholder="********" 
+                minLength={8}
+                maxLength={8}
+                /> 
+                {errors.password_repeat && <Menssage>Dados inválidos</Menssage>}
   
 
-                <Input type="submit" value="Entrar" className="button" />
+                <Input 
+                type="submit" 
+                value="Entrar" 
+                className="button" 
+                />
 
                 <p>Já possui cadastro ?</p>
                 <a onClick={() => nav("/auth/login")}>Clique aqui</a>

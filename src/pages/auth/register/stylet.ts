@@ -17,7 +17,7 @@ export const Form = styled.form`
     width: 100%;
     max-width: 450px;
     padding: 20px;
-    height: 600px;
+    height: 800px;
     background-color: #fff;
     color: #333;
     border-radius: 10px;
@@ -86,4 +86,20 @@ export const Select = styled.select`
 
 
 `;
-export const Option = styled.option``;
+export const Option = styled.option`
+    width: 100%;
+    max-width: 350px;
+    height: 40px;
+`;
+
+export const Menssage = styled.span`
+    text-align: left;
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 15px;
+    margin-top: -10px;
+    margin-left: 10px;
+    font-weight: bolder;
+    color:red;
+
+`;

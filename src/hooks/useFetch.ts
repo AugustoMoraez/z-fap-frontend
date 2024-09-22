@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 
 
 
-export const url = "https://z-fap.onrender.com";
+export const url_base = "https://z-fap.onrender.com";
 
 export const useFetch = <T = unknown>(key:string) => {
     const[data,setData] = useState<T | null>(null);
 
     useEffect(()=>{
-        axios.get(url+key)
+        axios.get(url_base+key)
             .then((res) =>{
                 setData(res.data)
             })
