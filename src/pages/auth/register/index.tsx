@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import {  userRegisterSchema, userRegisterType } from "../../../libs/zodSchemas";
 import {zodResolver} from "@hookform/resolvers/zod";
 import { Load } from "../../../components/loader";
+import axios from "axios";
 
 
 export const Register = () => {
@@ -17,9 +18,20 @@ export const Register = () => {
         } = useForm<userRegisterType>({
             resolver:zodResolver(userRegisterSchema),
     });
-    const handleRegisterUser = (data:userRegisterType) => {
-        console.log(data)
+    const handleRegisterUser = async (data:userRegisterType) => {
+         
         setLoad(true);
+        try {
+            console.log(1)
+            const response = await axios.post('https://z-fap.onrender.com/register', {
+                name:data.name,
+                email:data.email,
+                password:data.password,
+            });
+            nav("/home")
+        } catch (err: any) {
+            alert(err)
+        }
     }
     
     if(loading){
