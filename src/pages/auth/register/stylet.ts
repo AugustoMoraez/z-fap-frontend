@@ -74,24 +74,6 @@ export const Label = styled.label`
     font-weight: bold;
 `;
 
-export const Select = styled.select`
-    width: 100%;
-    max-width: 350px;
-    height: 40px;
-    margin-bottom: 10px;
-
-    border-radius: 5px;
-    border: 1px solid royalblue;
-    padding: 5px;
-
-
-`;
-export const Option = styled.option`
-    width: 100%;
-    max-width: 350px;
-    height: 40px;
-`;
-
 export const Menssage = styled.span`
     text-align: left;
     width: 100%;

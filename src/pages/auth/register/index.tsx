@@ -1,57 +1,22 @@
 import { useState } from "react";
-import { useFetch } from "../../../hooks/useFetch";
-import { sector } from "../../../types";
-import { Container, Form,Label,Select,Input,Title,Option,Menssage } from "./stylet";
+import { Container, Form,Label,Input,Title,Menssage } from "./stylet";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { userRegisterSchema, userRegisterSchemaType } from "../../../libs/zodSchemas";
+import {  userRegisterSchema, userRegisterType } from "../../../libs/zodSchemas";
 import {zodResolver} from "@hookform/resolvers/zod";
-import { useEffect } from "react";
 
 
 
 export const Register = () => {
-    const nav = useNavigate();
-    const [name, setName] = useState<string>("");
-    const [selectedSector, setSelectedSector] = useState<string>("");
-    const [sectorPositions, setSectorPositions] = useState<string[]>([""]);
-    const [selectedPosition, setSelectedPosition] = useState<string>("");
-    const { data } = useFetch<sector[]>("/sector")
-    
-    useEffect(()=>{
-        if(data){
-            const sector = data.filter(sector => sector.id === selectedSector)
-            setSectorPositions(sector[0].positions)
-        }else{
-            setSectorPositions(["Selecione primeiro o setor"])
-        }
-    },[selectedSector])
-
-
-
-
-
+    const nav = useNavigate(); 
     const{ 
         register, 
         handleSubmit,
         formState:{errors}
-        } = useForm<userRegisterSchemaType>({
+        } = useForm<userRegisterType>({
             resolver:zodResolver(userRegisterSchema),
-        });
-    
-    const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value);
-    };
-
-    const handleChangeSector = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedSector(event.target.value);
-    };
-    
-    const handleChangePosition = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedPosition(event.target.value);
-        
-    };
-    const handleRegisterUser = (data:userRegisterSchemaType) => {
+    });
+    const handleRegisterUser = (data:userRegisterType) => {
         console.log(data)
     }
     
@@ -67,56 +32,8 @@ export const Register = () => {
                 name="name" 
                 id="name" 
                 placeholder="ex: Marcos Zayrão L. Pinheiro" 
-                value={name}
-                onChange={handleChangeName}
                 />
                 {errors.name && <Menssage>Dados inválidos</Menssage>}
-
-
-                <Label htmlFor="sector-options">Setor</Label>
-                <Select 
-                id="sector-options" 
-                value={selectedSector} 
-                {...register("sectorID")}
-                onChange={handleChangeSector}
-                required
-                >
-                <option value={"selecione..."}>Selecione...</option>
-                {
-                    data ? 
-                    data.map((option,key) => (
-                        
-                        <Option key={key} value={option.id}>
-                            {option.name}
-                        </Option>
-                        
-                    ))
-                    : null
-                }
-                </Select>
-            
-
-                <Label htmlFor="position-options">Cargo</Label>
-                <Select 
-                id="position-options" 
-                value={selectedPosition} 
-                required
-                {...register("position")}
-                onChange={handleChangePosition}
-                >
-                <option value={"selecione..."}>Selecione...</option>
-                {
-
-                    sectorPositions ?
-                    sectorPositions.map((option,key)=>(
-                        <Option key={key} value={option}>
-                            {option}
-                        </Option>
-                    ))
-                    :
-                    null
-                }
-                </Select>
 
                 
                 <Label htmlFor="email">Email</Label>
