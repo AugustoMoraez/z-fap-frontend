@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {  userRegisterSchema, userRegisterType } from "../../../libs/zodSchemas";
 import {zodResolver} from "@hookform/resolvers/zod";
-
+import { Load } from "../../../components/loader";
 
 
 export const Register = () => {
+    const[loading,setLoad]= useState<boolean>(false)
     const nav = useNavigate(); 
     const{ 
         register, 
@@ -18,8 +19,15 @@ export const Register = () => {
     });
     const handleRegisterUser = (data:userRegisterType) => {
         console.log(data)
+        setLoad(true);
     }
     
+    if(loading){
+        return(
+            <Load/>
+        )
+    }
+        
     return (
         <Container>
             <Form onSubmit={handleSubmit(handleRegisterUser)}>
