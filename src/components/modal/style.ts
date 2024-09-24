@@ -1,13 +1,18 @@
 import styled from "styled-components";
 
 
-export const Container = styled.div`
+type ContainerProp = {
+    opacity:boolean
+}
+
+export const Container = styled.div<ContainerProp>`
     width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0,0.7);
     position: relative;
     position: absolute;
     z-index: 99;
+    display: ${(props)=> props.opacity ?"flex" :"none"};
 
 `;
 

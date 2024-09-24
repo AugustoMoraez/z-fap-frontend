@@ -1,13 +1,14 @@
 import { Container,Modal } from "./style"
 
-type msgModalProp = {
+export type modalData = {
+    on:boolean,
     msg:string,
     func:()=>void,
 }
 
-export const MsgModal = (prop:msgModalProp) => {
+export const MsgModal = (prop:modalData) => {
     return(
-        <Container>
+        <Container opacity={prop.on}>
             <Modal>
                 <p>
                 {prop.msg}
