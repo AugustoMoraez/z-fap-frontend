@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
+import { Load } from "../components/loader";
 
 export const redirectToAuth = () => {
     const nav = useNavigate();
@@ -7,6 +8,6 @@ export const redirectToAuth = () => {
         nav("/auth/login")
     })
     return(
-        <div>Carregando...</div>
+        <Load/>
     )
 }
