@@ -25,6 +25,7 @@ export const Container = styled.div`
         border-radius: 100%;
         border-top:5px solid royalblue;
         animation: girar 1s linear infinite;
+        z-index: 98;
    }
 
    

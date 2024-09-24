@@ -5,12 +5,17 @@ import { useForm } from "react-hook-form";
 import {  userRegisterSchema, userRegisterType } from "../../../libs/zodSchemas";
 import {zodResolver} from "@hookform/resolvers/zod";
 import { Load } from "../../../components/loader";
-import axios,{AxiosError} from "axios";
+import {AxiosError} from "axios";
+import { BaseApi } from "../../../libs/axiosConfig";
+import { MsgModal } from "../../../components/modal";
 
 
 export const Register = () => {
+
     const[loading,setLoad]= useState<boolean>(false)
+    const[msgModal,setMsgModal]= useState<boolean>(false)
     const nav = useNavigate(); 
+    
     const{ 
         register, 
         handleSubmit,
@@ -18,6 +23,19 @@ export const Register = () => {
         } = useForm<userRegisterType>({
             resolver:zodResolver(userRegisterSchema),
     });
+
+    const handleRegisterErro = (e:unknown) => {
+        if(e instanceof AxiosError){
+            {
+                e.response?.data.erro === "P2002"&&
+                alert("Email que voce esta tentando usar ja esta cadastrado")
+            }
+        }else{
+            alert("Erro nao catalogado chame no suporte")
+        }
+        setLoad(false)
+    }
+
     const handleRegisterUser = async (data:userRegisterType) => {
          
         if(data.email===data.email_repeat &&
@@ -25,25 +43,18 @@ export const Register = () => {
         ){
             setLoad(true);
             try {
-                console.log(1)
-                const response = await axios.post('https://z-fap.onrender.com/register', {
+                const response = await BaseApi.post("/register",{
                     name:data.name,
                     email:data.email,
                     password:data.password,
-                });
-                nav("/home")
-            } catch (err) {
-                if(err instanceof AxiosError){
-                    {
-                        err.response?.data.erro === "P2002"?
-                        alert("Email que voce esta tentando usar ja esta cadastrado"):
-                        alert("Erro nao catalogado, chame o suporte.")
-                    }
-                }else{
-                    alert(err)
-                }
-                setLoad(false);
-                console.log(err)
+                })
+              
+                console.log(response.data,response.status)
+                alert("Sua solicitação de cadastro foi criado, aguarde um adm do zfap aceita-la para poder logar")
+                setTimeout(()=>nav("/auth/login"), 5000)
+                
+            } catch (e) {
+                handleRegisterErro(e)
             }
 
         }else{
@@ -59,6 +70,14 @@ export const Register = () => {
         
     return (
         <Container>
+            {
+            msgModal && 
+            <MsgModal 
+            msg="Sua solicitação de registro foi criada. Aguarde um ADM do Z-FAP aceita-la" 
+            func={ ()=> {setMsgModal(!msgModal)} }
+            />
+            }
+
             <Form onSubmit={handleSubmit(handleRegisterUser)}>
                 <Title>Cadastre-se</Title>
 
