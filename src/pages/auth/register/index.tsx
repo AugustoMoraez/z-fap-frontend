@@ -13,12 +13,12 @@ import { modalData, MsgModal } from "../../../components/modal";
 export const Register = () => {
 
     const [loading, setLoad] = useState<boolean>(false)
-    
     const [modalData, setModalData] = useState<modalData>({
         msg: "",
         on: false,
         func: () => setModalData({...modalData,on:false})
     })
+
     const nav = useNavigate();
 
     const {
@@ -37,7 +37,8 @@ export const Register = () => {
                     ...modalData,
                     msg: "Email que voce esta tentando usar ja esta cadastrado",
                     on: true,
-                }) :
+                })
+                :
                 setModalData({
                     ...modalData,
                     msg: "Erro na requisição, tente novamente mais tarde",
@@ -80,7 +81,11 @@ export const Register = () => {
             }
 
         } else {
-            alert("Senhas ou emails diferem")
+            setModalData({
+                ...modalData,
+                msg: "Emails ou senhas se diferem",
+                on: true,
+            }) 
         }
     }
 

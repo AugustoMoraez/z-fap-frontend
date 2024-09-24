@@ -1,15 +1,14 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { BaseApi } from "../libs/axiosConfig";
 
 
 
-export const url_base = "https://z-fap.onrender.com";
 
 export const useFetch = <T = unknown>(key:string) => {
     const[data,setData] = useState<T | null>(null);
 
     useEffect(()=>{
-        axios.get(url_base+key)
+        BaseApi.get(key)
             .then((res) =>{
                 setData(res.data)
             })
