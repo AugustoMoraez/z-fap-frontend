@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Form, Label, Input, Title, Menssage } from "./stylet";
+import { Container, Form, Label, Input, Title, Menssage } from "../stylet";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { userRegisterSchema, userRegisterType } from "../../../libs/zodSchemas";

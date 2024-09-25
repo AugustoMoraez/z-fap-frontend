@@ -11,8 +11,8 @@ export type userRegisterSchemaType = z.infer<typeof userSchema>
 
 //Formulario de login
 export const userLoginSchema = z.object({
-    email:z.string().email("formato de email invalido"),
-    password:z.string().min(8,"precisa de 8 caracteres").max(8),
+    email:z.string().email("Email invalido"),
+    password:z.string().min(8,"Minimo de 8 caracteres").max(8).min(8),
 })
 
 export type userLoginType = z.infer<typeof userLoginSchema>

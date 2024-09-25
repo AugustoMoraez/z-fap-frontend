@@ -17,7 +17,7 @@ export const Form = styled.form`
     width: 100%;
     max-width: 450px;
     padding: 20px;
-    height: 800px;
+    
     background-color: #fff;
     color: #333;
     border-radius: 10px;

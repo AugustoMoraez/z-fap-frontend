@@ -8,7 +8,7 @@ export type modalData = {
 
 export const MsgModal = (prop:modalData) => {
     return(
-        <Container opacity={prop.on}>
+        <Container opacity={prop.on ?"flex" :"none"}>
             <Modal>
                 <p>
                 {prop.msg}

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 
 type ContainerProp = {
-    opacity:boolean
+    opacity:string
 }
 
 export const Container = styled.div<ContainerProp>`
@@ -12,7 +12,7 @@ export const Container = styled.div<ContainerProp>`
     position: relative;
     position: absolute;
     z-index: 99;
-    display: ${(props)=> props.opacity ?"flex" :"none"};
+    display: ${(props)=> props.opacity };
 
 `;
 
