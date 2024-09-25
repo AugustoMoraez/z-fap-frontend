@@ -8,6 +8,9 @@ import { modalData,MsgModal } from "../../../components/modal";
 import { Load } from "../../../components/loader";
 import { BaseApi } from "../../../libs/axiosConfig";
 import { AxiosError } from "axios";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../../libs/redux/user/userReducer";
+
 
 
 export const Login = () => {
@@ -20,7 +23,7 @@ export const Login = () => {
     })
 
     const nav = useNavigate();
-
+    const dispatch = useDispatch();
     const {
         register,
         handleSubmit,
@@ -53,8 +56,9 @@ export const Login = () => {
     const handleLogin = async ({email,password}: userLoginType) => {
         setLoad(true)
         try {
-            const data = await BaseApi.post("/login",{email,password});
-            console.log(data)
+            const response = await BaseApi.post("/login",{email,password});
+            dispatch(setCurrentUser(response.data));
+            nav("/home")
         } catch (e) {
             handleErroLogin(e)
         }
