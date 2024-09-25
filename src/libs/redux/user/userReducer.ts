@@ -1,27 +1,29 @@
 import {createSlice} from "@reduxjs/toolkit";
+import { getLocalStorage } from "../../../hooks/LocalStorage";
 
-
+type CurrentUserType = {
+    data:{
+        id:string,
+        name:string,
+        email:string,
+        password:string,
+        position:string,
+        active:true,
+        permissions:string[],
+        sectorID:string,
+    },
+    token:string
+}
 
 export const slice = createSlice({
     name:"user",
     initialState:{
-        CurrentUser:{
-            data:{
-                id:"",
-                name:"",
-                email:"",
-                password:"",
-                position:"",
-                active:true,
-                permissions:["padrao"],
-                sectorID:"",
-            },
-            token:""
-        }
+        CurrentUser:getLocalStorage<CurrentUserType>("CurrentUser")
     },  
     reducers:{
         setCurrentUser: (state,action)=> {
-                state.CurrentUser = action.payload;
+            localStorage.setItem("CurrentUser", JSON.stringify(action.payload));  
+            return { ...state, CurrentUser:action.payload }
         }
     }
 });

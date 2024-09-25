@@ -1,16 +1,22 @@
+import { useNavigate } from "react-router-dom"
 import { Header } from "../../components/header"
 import { useAppSelector } from "../../hooks/useAppSelector"
 import { Container } from "./style"
+import { useEffect } from "react"
 
 export const Home = () => {
-
-    const { data:user,token } = useAppSelector(state => state.user.CurrentUser);
+    const state = useAppSelector(state => state.user.CurrentUser );
+    const nav = useNavigate()
+    useEffect(()=>{
+        if(!state)nav("/auth/login")
+    })
+    
     return(
        
         <Container>
             <Header/>
-            <p>meu id {token}</p>
-            <p>meu nome é {user.name} e ocupo o cargo de {user.position}</p>
+            <p>meu id {}</p>
+            <p>meu nome é { } e ocupo o cargo de { }</p>
         </Container>
         
     )
