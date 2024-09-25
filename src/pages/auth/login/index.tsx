@@ -39,8 +39,6 @@ export const Login = () => {
                     msg:msgErro          
                 })
                 setLoad(false)
-
-                
             }
         }else{
             setModalData({
