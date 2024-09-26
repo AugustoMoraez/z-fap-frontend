@@ -1,6 +1,6 @@
 import { Route,Routes } from "react-router-dom"
-import { Home } from "./pages/home"
-import { redirectToAuth } from "./pages"
+import { Setup } from "./pages/setup"
+import { redirectToAuth } from "./pages/home"
 import { Login } from "./pages/auth/login"
 import { Register } from "./pages/auth/register"
 
@@ -13,7 +13,7 @@ const App = () => {
         <Route Component={redirectToAuth} path="/" />
         <Route Component={Login} path="/auth/login" />
         <Route Component={Register} path="/auth/register" />
-        <Route Component={Home} path="/home" />
+        <Route Component={Setup} path="/setup" />
       </Routes>
     </div>
   )

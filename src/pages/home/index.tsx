@@ -1,23 +1,22 @@
 import { useNavigate } from "react-router-dom"
-import { Header } from "../../components/header"
-import { useAppSelector } from "../../hooks/useAppSelector"
-import { Container } from "./style"
 import { useEffect } from "react"
+import { useAppSelector } from "../../hooks/useAppSelector";
+import { Container } from "./style";
+import { Header } from "../../components/header";
 
-export const Home = () => {
-    const state = useAppSelector(state => state.user.CurrentUser );
-    const nav = useNavigate()
+
+export const redirectToAuth = () => {
+    const user = useAppSelector(state => state.user.CurrentUser)
+    const nav = useNavigate();
     useEffect(()=>{
-        if(!state)nav("/auth/login")
+        if(!user){
+            nav("/auth/login")
+        }
     })
-    
     return(
-       
         <Container>
             <Header/>
-            <p>meu id {}</p>
-            <p>meu nome é { } e ocupo o cargo de { }</p>
+            home
         </Container>
-        
-    )
+    )      
 }

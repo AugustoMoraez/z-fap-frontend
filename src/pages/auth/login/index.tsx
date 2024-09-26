@@ -58,7 +58,7 @@ export const Login = () => {
         try {
             const response = await BaseApi.post("/login",{email,password});
             dispatch(setCurrentUser(response.data));
-            nav("/home")
+            nav("/")
         } catch (e) {
             handleErroLogin(e)
         }
