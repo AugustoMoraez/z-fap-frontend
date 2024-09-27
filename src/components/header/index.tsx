@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { CgProfile } from "react-icons/cg";
 import { ImExit } from "react-icons/im";
 import { useState } from "react";
-import { useDispatch, UseDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 import { setCurrentUser } from "../../libs/redux/user/userReducer";
 import { modalData,MsgModal } from "../modal";
 
@@ -37,7 +37,7 @@ export const Header = () => {
             break;
             case "ADM":
                 if(permissions.includes("ADM"))
-                    nav("painel-adm")
+                    nav("/painel-adm")
             break;
             default:null;
         }
@@ -60,6 +60,7 @@ export const Header = () => {
                     {user?.data.name.split(" ")[0]}
                 </IconProfile>
                 <MenuOptions toggle={toggleMenu}>
+                    <Option>Meu perfil</Option>
                     {
                         permissions.map(item=>(
                             <Option onClick={()=>redirect(item)}>{item}</Option>
@@ -69,7 +70,7 @@ export const Header = () => {
                 </MenuOptions>
 
             </MenuContainer>
-            
+            <img src="../../public/fap.png"/>
             
         </Container>
         

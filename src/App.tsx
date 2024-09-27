@@ -3,6 +3,7 @@ import { Setup } from "./pages/setup"
 import { redirectToAuth } from "./pages/home"
 import { Login } from "./pages/auth/login"
 import { Register } from "./pages/auth/register"
+import { PainelADM } from "./pages/painel-adm"
 
 
 const App = () => {
@@ -13,7 +14,7 @@ const App = () => {
         <Route Component={redirectToAuth} path="/" />
         <Route Component={Login} path="/auth/login" />
         <Route Component={Register} path="/auth/register" />
-        <Route Component={Setup} path="/setup" />
+        <Route Component={PainelADM} path="/painel-adm" />
       </Routes>
     </div>
   )
