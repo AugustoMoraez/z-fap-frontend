@@ -1,23 +1,31 @@
-import { Container, Item, List, ListItem, Title } from "./style"
+import { Container, Nav,NavItem, NavLink, NavSubMenu, NavSubMenuLink } from "./style"
+import { options } from "./menuOptions"
+
 
 export const Aside = () => {
-    const options = [
-        {
-            title: "Usuarios",
-            options: [
-                "Gerenciar-Cadastros",
-                "Solicitações-de-cadastro"
-            ]
-        },
-        {
-            title: "Setores",
-            options: [
-                "Gerenciar setores"
-            ]
-        }
-    ]
+
+
+
+
+
+
+
     return (
         <Container>
+            <Nav>
+                {
+                    options.map((item)=>(
+                        <NavItem>
+                            <NavLink href={"#"+item.title}>{item.title}</NavLink>
+                            <NavSubMenu id={item.title}>
+                                {item.options.map((item)=>(
+                                    <NavSubMenuLink href={"#"+item} >{item.split("-").join(" ")}</NavSubMenuLink>
+                                ))}
+                            </NavSubMenu>
+                        </NavItem>
+                    ))
+                }
+            </Nav>
         </Container>
     )
 }

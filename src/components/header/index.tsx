@@ -62,7 +62,7 @@ export const Header = () => {
                 <MenuOptions toggle={toggleMenu}>
                     <Option>Meu perfil</Option>
                     {
-                        permissions.map(item=>(
+                        permissions.map((item)=>(
                             <Option onClick={()=>redirect(item)}>{item}</Option>
                         ))
                     }

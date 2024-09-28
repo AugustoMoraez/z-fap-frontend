@@ -1,13 +1,22 @@
+import { Route, Routes } from "react-router-dom"
 import { Aside } from "../../components/aside"
 import { Header } from "../../components/header"
-import { Container } from "./style"
+import { Container,SubContainer } from "./style"
+import { Pessoas } from "./subpages/usuarios"
+import { Setores } from "./subpages/setores"
 
 export const PainelADM = () => {
-    return(
+    return (
         <Container>
-            <Header/>
-            <Aside/>
+            <Header />
+            <SubContainer>
+                <Aside />
+                <Routes>
+                    <Route Component={Pessoas} path="/painel-adm#Gerenciar-Cadastros" />
+                    <Route Component={Setores} path="/painel-adm/setores" />
+                </Routes>
+            </SubContainer>
         </Container>
-            
+
     )
 }
