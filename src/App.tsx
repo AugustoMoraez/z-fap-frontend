@@ -1,5 +1,4 @@
 import { Route,Routes } from "react-router-dom"
-import { Setup } from "./pages/setup"
 import { redirectToAuth } from "./pages/home"
 import { Login } from "./pages/auth/login"
 import { Register } from "./pages/auth/register"
