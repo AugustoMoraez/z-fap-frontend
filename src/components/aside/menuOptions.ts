@@ -9,7 +9,7 @@ export const options = [
     {
         title: "Setores",
         options: [
-            "Gerenciar setores"
+            "Gerenciar-setores"
         ]
     }
 ]

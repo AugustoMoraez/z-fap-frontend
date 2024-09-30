@@ -24,6 +24,10 @@ export const NavItem = styled.li`
    font-size: 20px;
    background: #7393f4;
    border-bottom: 1px solid rgba(63, 46, 73, 0.3);
+   a{
+      text-decoration: none;
+      color: #fff;
+   }
    &:last-child{
       border-bottom: none;
    }

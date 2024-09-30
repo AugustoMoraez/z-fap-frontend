@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Route,  Routes } from "react-router-dom"
 import { Aside } from "../../components/aside"
 import { Header } from "../../components/header"
 import { Container,SubContainer } from "./style"
@@ -11,9 +11,11 @@ export const PainelADM = () => {
             <Header />
             <SubContainer>
                 <Aside />
+               
                 <Routes>
-                    <Route Component={Pessoas} path="/painel-adm#Gerenciar-Cadastros" />
-                    <Route Component={Setores} path="/painel-adm/setores" />
+                    <Route Component={Pessoas} path="Usuarios/Gerenciar-Cadastros" />
+                    <Route Component={Setores} path="Setores/Gerenciar-setores" />
+                    
                 </Routes>
             </SubContainer>
         </Container>
