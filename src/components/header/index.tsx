@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useDispatch} from "react-redux";
 import { setCurrentUser } from "../../libs/redux/user/userReducer";
 import { modalData,MsgModal } from "../modal";
+import { Navigate } from "../navigate/desktop";
 
 export const Header = () => {
     const[toggleMenu,setToggleMenu] =useState<boolean>(false)
@@ -17,37 +18,14 @@ export const Header = () => {
     })
     const user = useAppSelector(state => state.user.CurrentUser)
     const dispatch = useDispatch();
-    const permissions = user ? user.data.permissions : ["Colaborador"]
     const nav = useNavigate()
 
-    const redirect = (path:string) => {
-        switch(path){
-            case "colaborador":
-                nav("/")
-            break;
-            case "gestor":
-                if(permissions.includes("gestor")) 
-                return    nav("/gestao");
-
-                setModalData({
-                    ...modalData,
-                    on:true
-                })
-                
-            break;
-            case "ADM":
-                if(permissions.includes("ADM"))
-                    nav("/painel-adm")
-            break;
-            default:null;
-        }
-    }
     const logout = () => {
         dispatch(setCurrentUser(null))
         nav("/auth/login")
     }
     return(
-       
+       <>
         <Container>
             <MsgModal 
             on={modalData.on} 
@@ -66,11 +44,10 @@ export const Header = () => {
                     <Option>Meu perfil</Option>
                     <Option onClick={logout}>Sair <ImExit /></Option>
                 </MenuOptions>
-
             </MenuContainer>
-            <img src="../../public/fap.png"/>
-            
         </Container>
+        <Navigate/>
+       </>
         
     )
 }
