@@ -59,13 +59,11 @@ export const Header = () => {
                     <CgProfile/>
                     {user?.data.name.split(" ")[0]}
                 </IconProfile>
-                <MenuOptions toggle={toggleMenu}>
+                <MenuOptions 
+                 display={toggleMenu ? "flex":"none"}
+                 opacity={toggleMenu ? "1" : "0"}
+                >
                     <Option>Meu perfil</Option>
-                    {
-                        permissions.map((item)=>(
-                            <Option onClick={()=>redirect(item)}>{item}</Option>
-                        ))
-                    }
                     <Option onClick={logout}>Sair <ImExit /></Option>
                 </MenuOptions>
 

@@ -2,20 +2,19 @@ import { Route,Routes } from "react-router-dom"
 import { redirectToAuth } from "./pages/home"
 import { Login } from "./pages/auth/login"
 import { Register } from "./pages/auth/register"
-import { PainelADM } from "./pages/painel-adm"
+import {Container} from "./AppStyle"
 
 
 const App = () => {
 
   return (
-    <div>
+    <Container>
       <Routes>
         <Route Component={redirectToAuth} path="/" />
         <Route Component={Login} path="/auth/login" />
         <Route Component={Register} path="/auth/register" />
-        <Route Component={PainelADM} path="/painel-adm" />
       </Routes>
-    </div>
+    </Container>
   )
 }
 

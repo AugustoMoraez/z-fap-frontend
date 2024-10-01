@@ -38,12 +38,13 @@ export const IconProfile = styled.span`
     }
 `;
 type propMenu ={
-    toggle:boolean
+    opacity:string,
+    display:string
 } 
 export const MenuOptions = styled.ul<propMenu>`
     margin-top:150px ;
     width: 120px;
-    opacity: ${prop => prop.toggle ? "1":"0"};
+    opacity: ${prop => prop.opacity};
     background-color: aliceblue;
     color:#333;
     list-style: none;
@@ -51,7 +52,7 @@ export const MenuOptions = styled.ul<propMenu>`
     position: absolute;
     border-radius: 5px;
     li{
-        display: ${prop => prop.toggle ? "flex":"none"};
+        display: ${prop => prop.display};
     } 
 `;
 export const Option = styled.li`
