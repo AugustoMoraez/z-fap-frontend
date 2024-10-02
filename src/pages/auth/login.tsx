@@ -1,15 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userLoginSchema, userLoginType } from "../../../libs/zodSchemas";
-import { Container, Form, Label, Input, Title, Menssage } from "../stylet";
+import { userLoginSchema, userLoginType } from "../../libs/zodSchemas";
+import { Container, Form, Label, Input, Title, Menssage } from "./style";
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { modalData,MsgModal } from "../../../components/modal";
-import { Load } from "../../../components/loader";
-import { BaseApi } from "../../../libs/axiosConfig";
+import { modalData,MsgModal } from "../../components/modal";
+import { Load } from "../../components/loader";
+import { BaseApi } from "../../libs/axiosConfig";
 import { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../../../libs/redux/user/userReducer";
+import { setCurrentUser } from "../../libs/redux/user/userReducer";
 
 
 

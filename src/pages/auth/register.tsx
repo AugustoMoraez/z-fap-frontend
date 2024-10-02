@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Container, Form, Label, Input, Title, Menssage } from "../stylet";
+import { Container, Form, Label, Input, Title, Menssage } from "./style";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { userRegisterSchema, userRegisterType } from "../../../libs/zodSchemas";
+import { userRegisterSchema, userRegisterType } from "../../libs/zodSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Load } from "../../../components/loader";
+import { Load } from "../../components/loader";
 import { AxiosError } from "axios";
-import { BaseApi } from "../../../libs/axiosConfig";
-import { modalData, MsgModal } from "../../../components/modal";
+import { BaseApi } from "../../libs/axiosConfig";
+import { modalData, MsgModal } from "../../components/modal";
 
 
 export const Register = () => {

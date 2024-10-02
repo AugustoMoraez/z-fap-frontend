@@ -2,10 +2,9 @@ import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { Container } from "./style";
-import { Header } from "../../components/header";
 
 
-export const redirectToAuth = () => {
+export const Home = () => {
     const user = useAppSelector(state => state.user.CurrentUser)
     const nav = useNavigate();
     useEffect(()=>{
@@ -15,7 +14,6 @@ export const redirectToAuth = () => {
     })
     return(
         <Container>
-            <Header/>
             home
         </Container>
     )      
