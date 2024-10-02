@@ -1,4 +1,4 @@
-import { Container,IconProfile ,MenuContainer, MenuOptions,Option} from "./style"
+import { Container,IconProfile ,MenuContainer, MenuOptions,Option, SubContainer} from "./style"
 import { useAppSelector } from "../../hooks/useAppSelector"
 import { useNavigate } from "react-router-dom"
 import { CgProfile } from "react-icons/cg";
@@ -25,8 +25,8 @@ export const Header = () => {
         nav("/auth/login")
     }
     return(
-       <>
-        <Container>
+       <Container>
+        <SubContainer>
             <MsgModal 
             on={modalData.on} 
             msg={modalData.msg} 
@@ -44,9 +44,9 @@ export const Header = () => {
                     <Option onClick={logout}>Sair <ImExit /></Option>
                 </MenuOptions>
             </MenuContainer>
-        </Container>
+        </SubContainer>
         <Navigate/>
-       </>
+       </Container>
         
     )
 }

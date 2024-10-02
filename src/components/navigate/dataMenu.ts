@@ -4,9 +4,9 @@ const menuOptions =[
 		rule:"Colaborador",
 		rotas:[
 			{
-			title:"meu-perfil",
+			title:"Meu-perfil",
 			subrotas:[
-			"meu-usuario",
+			"Meu-usuario",
 			"Desempenho-avaliativo"
 			]
 			}
@@ -16,10 +16,10 @@ const menuOptions =[
 		rule:"Gestor",
 		rotas:[
 			{
-			title:"gestão",
+			title:"Gestão",
 			subrotas:[
-			"meu-setor",
-			"avaliação-de-colaborador"
+			"Meu-setor",
+			"Avaliação-de-colaborador"
 			]
 			}
 		]	
@@ -32,7 +32,7 @@ const menuOptions =[
 			subrotas:[
 			"Setores",
 			"Pessoas",
-			"Solicitação-de-regsitro"
+			"Solicitação-de-registro"
 			]
 			}
 		]
