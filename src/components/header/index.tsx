@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useDispatch} from "react-redux";
 import { setCurrentUser } from "../../libs/redux/user/userReducer";
 import { modalData,MsgModal } from "../modal";
-import { Navigate } from "../navigate/desktop";
+import { Navigate } from "../navigate";
 
 export const Header = () => {
     const[toggleMenu,setToggleMenu] =useState<boolean>(false)
@@ -41,7 +41,6 @@ export const Header = () => {
                  display={toggleMenu ? "flex":"none"}
                  opacity={toggleMenu ? "1" : "0"}
                 >
-                    <Option>Meu perfil</Option>
                     <Option onClick={logout}>Sair <ImExit /></Option>
                 </MenuOptions>
             </MenuContainer>

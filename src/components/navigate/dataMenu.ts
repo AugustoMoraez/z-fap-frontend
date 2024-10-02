@@ -4,7 +4,7 @@ const menuOptions =[
 		rule:"Colaborador",
 		rotas:[
 			{
-			title:"minha-conta",
+			title:"meu-perfil",
 			subrotas:[
 			"meu-usuario",
 			"Desempenho-avaliativo"
@@ -28,7 +28,7 @@ const menuOptions =[
 		rule:"ADM",
 		rotas:[
 			{
-			title:"gestão-ZFAP",
+			title:"Administração-ZFAP",
 			subrotas:[
 			"Setores",
 			"Pessoas",

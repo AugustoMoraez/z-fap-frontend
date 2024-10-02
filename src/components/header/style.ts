@@ -3,12 +3,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     width: 100%;
-    height: 120px;
-    background-color: royalblue;
+    height: 80px;
+    background-color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding:  0px 30px;
     select{
         background-color: #333;
         color: #fff;
@@ -32,9 +32,11 @@ export const IconProfile = styled.span`
     align-items: center;
     flex-direction: column;
     background-color:0%;
+    color: #15A4FA;
     cursor:pointer;
     svg{
         font-size: 35px;
+         
     }
 `;
 type propMenu ={
@@ -42,8 +44,9 @@ type propMenu ={
     display:string
 } 
 export const MenuOptions = styled.ul<propMenu>`
-    margin-top:150px ;
-    width: 120px;
+    margin-top:100px ;
+    
+    width: 80px;
     opacity: ${prop => prop.opacity};
     background-color: aliceblue;
     color:#333;
