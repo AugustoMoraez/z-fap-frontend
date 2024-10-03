@@ -5,6 +5,7 @@ import { Register } from "../pages/auth/register"
 import { Container,Main } from "../AppStyle"
 import { Header } from "../components/header"
 import { useAppSelector } from "../hooks/useAppSelector"
+import { NotFound } from "../pages/notFound"
 
 
 export const MainRouter = () => {
@@ -19,6 +20,7 @@ export const MainRouter = () => {
             <Route Component={Home} path="/" />
             <Route Component={Login} path="/auth/login" />
             <Route Component={Register} path="/auth/register" />
+            <Route Component={NotFound} path="*" />
           </Routes>
         
       </Container>
@@ -31,6 +33,7 @@ export const MainRouter = () => {
         <Main>
           <Routes>
             <Route Component={Home} path="/" />
+            <Route Component={NotFound} path="*" />
           </Routes>
         </Main>
       

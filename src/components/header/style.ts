@@ -28,6 +28,7 @@ export const MenuContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: auto;
 `;
 export const IconProfile = styled.span`
     display: flex;
@@ -46,7 +47,7 @@ type propMenu ={
     display:string
 } 
 export const MenuOptions = styled.ul<propMenu>`
-    margin-top:100px ;
+    margin-top:120px ;
     
     width: 80px;
     opacity: ${prop => prop.opacity};
