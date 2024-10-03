@@ -12,6 +12,11 @@ export const Navigate = () => {
     const permissions = user?.data.permissions ? user?.data.permissions :[""] 
     const menuOptions:dataMenuOption = getMenuOptions(permissions);
     
+    const redirect = (url:string) => {
+        setToogle(false);
+        nav(url);
+    }
+
     return(
        <>
             <Bar>
@@ -26,7 +31,7 @@ export const Navigate = () => {
                                 <Nav id={rota.title}>
                                     {
                                         rota.subrotas.map(subrota=>(
-                                            <NavItem onClick={()=>nav("/"+rota.title+"/"+subrota)}>{subrota.split("-").join(" ")}</NavItem>
+                                            <NavItem onClick={()=>redirect(`/${rota.title}/${subrota}`)}>{subrota.split("-").join(" ")}</NavItem>
                                         ))
                                     }
                                 </Nav>

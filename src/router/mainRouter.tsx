@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom"
 import { Home } from "../pages/home"
 import { Login } from "../pages/auth/login"
 import { Register } from "../pages/auth/register"
-import { Container } from "../AppStyle"
+import { Container,Main } from "../AppStyle"
 import { Header } from "../components/header"
 import { useAppSelector } from "../hooks/useAppSelector"
 
@@ -14,11 +14,13 @@ export const MainRouter = () => {
   if (!user) {
     return (
       <Container>
-        <Routes>
-          <Route Component={Home} path="/" />
-          <Route Component={Login} path="/auth/login" />
-          <Route Component={Register} path="/auth/register" />
-        </Routes>
+         
+          <Routes>
+            <Route Component={Home} path="/" />
+            <Route Component={Login} path="/auth/login" />
+            <Route Component={Register} path="/auth/register" />
+          </Routes>
+        
       </Container>
     )
   }
@@ -26,9 +28,12 @@ export const MainRouter = () => {
   return (
     <Container>
       <Header />
-      <Routes>
-        <Route Component={Home} path="/" />
-      </Routes>
+        <Main>
+          <Routes>
+            <Route Component={Home} path="/" />
+          </Routes>
+        </Main>
+      
     </Container>
   )
 }

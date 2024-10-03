@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     width: 100%;
-    position: fixed;
+    position: fixed;     
 `;
 
 export const SubContainer = styled.div`
@@ -21,15 +21,13 @@ export const SubContainer = styled.div`
         height: 30px;
         border-radius: 7px;
         text-transform: uppercase;
-        text-align: center;
-        
+        text-align: center;  
     }
     `;
 export const MenuContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
 `;
 export const IconProfile = styled.span`
     display: flex;
@@ -41,7 +39,6 @@ export const IconProfile = styled.span`
     cursor:pointer;
     svg{
         font-size: 35px;
-         
     }
 `;
 type propMenu ={
