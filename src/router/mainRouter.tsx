@@ -6,6 +6,7 @@ import { Container,Main } from "../AppStyle"
 import { Header } from "../components/header"
 import { useAppSelector } from "../hooks/useAppSelector"
 import { NotFound } from "../pages/notFound"
+import { RequiredAuth } from "./requiredAuth"
 
 
 export const MainRouter = () => {
@@ -17,10 +18,10 @@ export const MainRouter = () => {
       <Container>
          
           <Routes>
-            <Route Component={Home} path="/" />
-            <Route Component={Login} path="/auth/login" />
-            <Route Component={Register} path="/auth/register" />
-            <Route Component={NotFound} path="*" />
+            <Route element={<RequiredAuth><Home/></RequiredAuth>} path="/" />
+            <Route element={<Login/>} path="/auth/login" />
+            <Route element={<Register/>} path="/auth/register" />
+            <Route element={<NotFound/>} path="*" />
           </Routes>
         
       </Container>
@@ -32,8 +33,8 @@ export const MainRouter = () => {
       <Header />
         <Main>
           <Routes>
-            <Route Component={Home} path="/" />
-            <Route Component={NotFound} path="*" />
+          <Route element={<RequiredAuth><Home/></RequiredAuth>} path="/" />
+            <Route element={<RequiredAuth><NotFound/></RequiredAuth>} path="*" />
           </Routes>
         </Main>
       
