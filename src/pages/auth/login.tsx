@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userLoginSchema, userLoginType } from "../../libs/zodSchemas";
+import { userLoginSchema, userLoginType } from "../../libs/shemas/authSchemas";
 import { Container, Form, Label, Input, Title, Menssage } from "./style";
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form";

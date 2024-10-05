@@ -28,10 +28,10 @@ export const Navigate = () => {
                         item.rotas.map(rota=>(
                             <NavContainer>
                                 <SectionTitle href={"#"+rota.title}>{rota.title.split("-").join(" ")}</SectionTitle>
-                                <Nav id={rota.title}>
+                                <Nav id={rota.title} key={rota.title}>
                                     {
-                                        rota.subrotas.map(subrota=>(
-                                            <NavItem onClick={()=>redirect(`/${rota.title}/${subrota}`)}>{subrota.split("-").join(" ")}</NavItem>
+                                        rota.subrotas.map((subrota,key)=>(
+                                            <NavItem  key={key} onClick={()=>redirect(`/${rota.title}/${subrota}`)}>{subrota.split("-").join(" ")}</NavItem>
                                         ))
                                     }
                                 </Nav>

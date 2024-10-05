@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Container, Form, Label, Input, Title, Menssage } from "./style";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { userRegisterSchema, userRegisterType } from "../../libs/zodSchemas";
+import { userRegisterSchema, userRegisterType } from "../../libs/shemas/authSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Load } from "../../components/loader";
 import { AxiosError } from "axios";

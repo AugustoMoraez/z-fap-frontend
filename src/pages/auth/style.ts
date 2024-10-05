@@ -63,7 +63,6 @@ export const Input = styled.input`
     border-radius: 5px;
     border: 1px solid royalblue;
     padding: 5px;
-
 `;
 
 
