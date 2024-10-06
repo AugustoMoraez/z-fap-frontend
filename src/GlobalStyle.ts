@@ -12,6 +12,20 @@ export const GlobalStyle = createGlobalStyle`
         background-color: #fff;
         color:#333;
     }
-
+     
+    .button{
+        color:#fff;
+        font-weight: 600;
+        background-color: #15a4fa;
+        transition: 0.5s;
+        
+         
+        &:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        }
+    }
+         
+   
 
 `;

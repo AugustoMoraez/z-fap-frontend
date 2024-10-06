@@ -2,25 +2,16 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     width: 100%;
-    
     margin: auto;
     background: white;
     padding: 20px;
     border-radius: 8px;
-    
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-     
-    
 `;
-export const Title = styled.h1`
-    
-    text-align: center;
-    color: #333;
 
-`;
 
 export const Table = styled.table`
     width: 100%;
@@ -29,6 +20,10 @@ export const Table = styled.table`
     border-collapse: collapse;
     margin-top: 20px;
     cursor: default;
+    .row:hover{
+        background-color: #f0f0f0;
+        cursor: pointer;
+    }
     tr{
         text-overflow: ellipsis;
     }
@@ -37,7 +32,6 @@ export const Table = styled.table`
         text-align: left;
         border-bottom: 1px solid #ddd;
     }
-    
     td {
         color: #555;
     }
@@ -50,5 +44,4 @@ export const Table = styled.table`
 export const TableHead = styled.thead`
     background-color: #15A4FA;
     color: white;
-
 `;

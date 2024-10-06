@@ -10,6 +10,7 @@ import { modalData,MsgModal } from "../modal";
 import { Navigate } from "../navigate";
 
 export const Header = () => {
+
     const[toggleMenu,setToggleMenu] =useState<boolean>(false)
     const [modalData, setModalData] = useState<modalData>({
         msg: "Voce nao tem autorização",
@@ -25,7 +26,7 @@ export const Header = () => {
         nav("/auth/login")
     }
     return(
-       <Container>
+       <Container >
         <SubContainer>
             <MsgModal 
             on={modalData.on} 

@@ -27,20 +27,6 @@ export const Form = styled.form`
     justify-content: center;
     align-items: center;
     
-    input{
-        
-    }
-    .button{
-        color:#fff;
-        font-weight: 600;
-        background-color: royalblue;
-        transition: 0.5s;
-
-        &:hover{
-            opacity: 0.8;
-        }
-    }
-   
     p{
         margin-top: 30px;
     }
@@ -50,28 +36,9 @@ export const Form = styled.form`
     }
 
 `;
-export const Title = styled.h2`
-    font-size: 30px;
-    margin:20px;
-`;
-
-export const Input = styled.input`
-    width: 100%;
-    max-width: 350px;
-    height: 40px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid royalblue;
-    padding: 5px;
-`;
+ 
 
 
-export const Label = styled.label`
-    width: 100%;
-    max-width: 350px;
-    margin-left: 10px;
-    font-weight: bold;
-`;
 
 export const Menssage = styled.span`
     text-align: left;

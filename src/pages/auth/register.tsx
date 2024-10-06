@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Form, Label, Input, Title, Menssage } from "./style";
+import { Container, Form,  Menssage } from "./style";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { userRegisterSchema, userRegisterType } from "../../libs/shemas/authSchemas";
@@ -8,6 +8,7 @@ import { Load } from "../../components/loader";
 import { AxiosError } from "axios";
 import { BaseApi } from "../../libs/axiosConfig";
 import { modalData, MsgModal } from "../../components/modal";
+import { Input, Label, Title } from "../../AppStyle";
 
 
 export const Register = () => {

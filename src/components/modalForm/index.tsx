@@ -1,20 +1,16 @@
-import { Container,Modal } from "./style"
+import { Background, Container } from "./style"
 
-export type modalData = {
-    on:boolean,
-    msg?:string,
-    func:()=>void,
+
+type Prop = {
+    children: JSX.Element|React.ReactNode;
+    display:"flex"|"none"
 }
-
-export const MsgModal = (prop:modalData) => {
+export const ModalForm = ( {children,display}:Prop  ) => {
     return(
-        <Container opacity={prop.on ?"flex" :"none"}>
-            <Modal>
-                <p>
-                {prop.msg ? prop.msg : "Você nao tem permissoes necessarias para acessar esta pagina"}
-                </p>
-                <button onClick={()=>prop.func()}>OK</button>
-            </Modal>
-        </Container>
+        <Background display={display}>
+            <Container >
+                {children}
+            </Container>
+        </Background>
     )
 }
