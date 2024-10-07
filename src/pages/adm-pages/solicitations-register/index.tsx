@@ -1,15 +1,15 @@
 
 import { Load } from "../../../components/loader";
-import { BaseApi } from "../../../libs/requests/axiosConfig";
-import { userType } from "../../../libs/schemas/userSchema"
 import { Container, Table, TableHead } from "./style"
-import { useQuery } from "react-query"
 import { ModalForm } from "../../../components/modalForm";
 import { Label,Input, FormOptions } from "../../../AppStyle";
 import { useState } from "react";
-import useSoliciationsQuery from "../../../libs/requests/adm/solicitations-request/customQuery";
+import useSoliciationsQuery from "../../../libs/fetchs/adm/solicitations-request/customQuery";
+import useOptionsRegisterQuery from "../../../libs/fetchs/adm/options-register/customQuery";
 
 export const SolicitationsRegister = () => {
+    const {listSolicitations,isLoading } = useSoliciationsQuery();
+    const{optionsRegister} = useOptionsRegisterQuery()
     const[toggle,setToggle] = useState<"none"|"flex">("none")
     const[userData,setUserData]=useState({
         name:"",
@@ -19,9 +19,7 @@ export const SolicitationsRegister = () => {
         sector:"",
         position:""
     })
-    const {listSolicitations,isLoading } = useSoliciationsQuery();
-     
-    
+     console.log(optionsRegister)
     const HandleToggleModal = (name:string,email:string) => {
         setUserData({
             ...userData,

@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { modalData,MsgModal } from "../../components/modal";
 import { Load } from "../../components/loader";
-import { BaseApi } from "../../libs/requests/axiosConfig";
+import { BaseApi } from "../../libs/fetchs/axiosConfig";
 import { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../libs/redux/user/userReducer";

@@ -6,7 +6,7 @@ import { userRegisterSchema, userRegisterType } from "../../libs/schemas/authSch
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Load } from "../../components/loader";
 import { AxiosError } from "axios";
-import { BaseApi } from "../../libs/requests/axiosConfig";
+import { BaseApi } from "../../libs/fetchs/axiosConfig";
 import { modalData, MsgModal } from "../../components/modal";
 import { Input, Label, Title } from "../../AppStyle";
 

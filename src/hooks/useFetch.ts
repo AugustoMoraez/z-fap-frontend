@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BaseApi } from "../libs/requests/axiosConfig";
+import { BaseApi } from "../libs/fetchs/axiosConfig";
 
 
 

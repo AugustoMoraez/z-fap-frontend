@@ -4,7 +4,7 @@ import App from './App.tsx'
 import  {GlobalStyle}  from './GlobalStyle.ts'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClientProvider } from 'react-query'
-import {queryClient} from "./libs/requests/queryClient.ts"
+import {queryClient} from "./libs/fetchs/queryClient.ts"
 import { Provider } from 'react-redux'
 import { store } from './libs/redux/store.ts'
 
