@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Container, Form,  Menssage } from "./style";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { userRegisterSchema, userRegisterType } from "../../libs/shemas/authSchemas";
+import { userRegisterSchema, userRegisterType } from "../../libs/schemas/authSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Load } from "../../components/loader";
 import { AxiosError } from "axios";
-import { BaseApi } from "../../libs/axiosConfig";
+import { BaseApi } from "../../libs/requests/axiosConfig";
 import { modalData, MsgModal } from "../../components/modal";
 import { Input, Label, Title } from "../../AppStyle";
 

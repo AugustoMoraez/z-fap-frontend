@@ -28,7 +28,6 @@ export const Table = styled.table`
     }
     .row:hover{
         background-color: #f0f0f0;
-        cursor: pointer;
     }
     tr{
         text-overflow: ellipsis;

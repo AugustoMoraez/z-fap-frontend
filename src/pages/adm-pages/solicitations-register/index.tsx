@@ -1,12 +1,13 @@
 
 import { Load } from "../../../components/loader";
-import { BaseApi } from "../../../libs/axiosConfig";
-import { userType } from "../../../libs/shemas/userSchema"
+import { BaseApi } from "../../../libs/requests/axiosConfig";
+import { userType } from "../../../libs/schemas/userSchema"
 import { Container, Table, TableHead } from "./style"
 import { useQuery } from "react-query"
 import { ModalForm } from "../../../components/modalForm";
 import { Label,Input, FormOptions } from "../../../AppStyle";
 import { useState } from "react";
+import useSoliciationsQuery from "../../../libs/requests/adm/solicitations-request/customQuery";
 
 export const SolicitationsRegister = () => {
     const[toggle,setToggle] = useState<"none"|"flex">("none")
@@ -18,11 +19,8 @@ export const SolicitationsRegister = () => {
         sector:"",
         position:""
     })
-    const { data, isFetching } = useQuery<{ data: userType[] }>("solicitations-register", async () => {
-
-        const response = await BaseApi.get("/solicitations-request");
-        return response.data
-    })
+    const {listSolicitations,isLoading } = useSoliciationsQuery();
+     
     
     const HandleToggleModal = (name:string,email:string) => {
         setUserData({
@@ -51,6 +49,7 @@ export const SolicitationsRegister = () => {
                     <option value={["Colaborador","Gestor"]}>Gestor</option>
                     <option value={["Colaborador","Gestor","ADM"]}>ADM</option>
                 </FormOptions>
+                 
                 
                 <Label htmlFor="user_sector">Setor</Label>
                 <Input type="text" name="user_sector" value={userData.sector}/>
@@ -64,7 +63,7 @@ export const SolicitationsRegister = () => {
                 <Input type="submit" value={"Ativar usuario"} className="button"/>
             </ModalForm>
 
-            {isFetching ? <Load /> :
+            {isLoading ? <Load /> :
 
             <Table>
                 <TableHead>
@@ -78,8 +77,8 @@ export const SolicitationsRegister = () => {
                 <tbody>
 
 
-                    {data?.data ? (
-                        data.data.map((user,key) => (
+                    {listSolicitations ? (
+                        listSolicitations.map((user,key) => (
                             <tr key={key} className="row">
                                 <td key={key+1}>{key+1}</td>
                                 <td key={key+2} className="name">{user.name}</td>
