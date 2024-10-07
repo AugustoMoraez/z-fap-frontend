@@ -5,9 +5,14 @@ import { ModalForm } from "../../../components/modalForm";
 import { Label,Input, FormOptions } from "../../../AppStyle";
 import { useState } from "react";
 import useSoliciationsQuery from "../../../libs/fetchs/adm/solicitations-request/customQuery";
+import useOptionsRegisterQuery from "../../../libs/fetchs/adm/registerOptions/customQuery";
+import fetchData from "../../../libs/fetchs/adm/registerOptions/fetchData";
+import { useQuery } from "react-query";
+import { sector } from "../../../libs/types/sector";
 
 export const SolicitationsRegister = () => {
     const {listSolicitations,isLoading } = useSoliciationsQuery();
+    const { data:optionsRegister ,isLoading:optionsLoad} = useQuery<sector[]>("optionsRegister", fetchData, { retry: 1 });
    
     const[toggle,setToggle] = useState<"none"|"flex">("none")
     const[userData,setUserData]=useState({
@@ -18,7 +23,6 @@ export const SolicitationsRegister = () => {
         sector:"",
         position:""
     })
-  
      
     const HandleToggleModal = (name:string,email:string) => {
         setUserData({
@@ -48,9 +52,24 @@ export const SolicitationsRegister = () => {
                     <option value={["Colaborador","Gestor","ADM"]}>ADM</option>
                 </FormOptions>
                  
-                
                 <Label htmlFor="user_sector">Setor</Label>
-                <Input type="text" name="user_sector" value={userData.sector}/>
+                
+                <FormOptions>
+                    {
+                        optionsLoad ? 
+                        <option disabled>Carregando</option>
+                        :
+                        <>  
+                            {
+                                optionsRegister && optionsRegister.map(option=>(
+                                    option.name !== "Sem Setor" &&
+                                    <option key={option.id} value={option.id} onClick={()=>setUserData({...userData,sector:option.id})}>{option.name}</option>
+                                ))
+                            }
+                        </>
+
+                    }
+                </FormOptions>
                 
                 <Label htmlFor="user_gestor">Gestor</Label>
                 <Input type="text" name="user_gestor" value={userData.manager}/>
