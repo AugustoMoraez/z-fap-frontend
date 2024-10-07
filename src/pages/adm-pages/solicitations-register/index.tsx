@@ -5,15 +5,17 @@ import { userType } from "../../../libs/shemas/userSchema"
 import { Container, Table, TableHead } from "./style"
 import { useQuery } from "react-query"
 import { ModalForm } from "../../../components/modalForm";
-import { Label,Input } from "../../../AppStyle";
+import { Label,Input, FormOptions } from "../../../AppStyle";
 import { useState } from "react";
 
 export const SolicitationsRegister = () => {
     const[toggle,setToggle] = useState<"none"|"flex">("none")
     const[userData,setUserData]=useState({
         name:"",
+        email:"",
         permissions:["Colaborador"],
         manager:"",
+        sector:"",
         position:""
     })
     const { data, isFetching } = useQuery<{ data: userType[] }>("solicitations-register", async () => {
@@ -22,7 +24,12 @@ export const SolicitationsRegister = () => {
         return response.data
     })
     
-    const HandleToggleModal = () => {
+    const HandleToggleModal = (name:string,email:string) => {
+        setUserData({
+            ...userData,
+            name,
+            email
+        })
         setToggle("flex")
          
     } 
@@ -35,10 +42,18 @@ export const SolicitationsRegister = () => {
                 <Input type="text" name="user_name" value={userData.name}/>
                
                 <Label htmlFor="user_email">Email</Label>
-                <Input type="email" name="user_email" value={userData.name} disabled/>
+                <Input type="email" name="user_email" value={userData.email} disabled/>
                 
                 <Label htmlFor="user_permissions">Permissão</Label>
-                <Input type="text" name="user_permissions" value={userData.permissions}/>
+
+                <FormOptions>
+                    <option value={["Colaborador"]}>Colaborador</option>
+                    <option value={["Colaborador","Gestor"]}>Gestor</option>
+                    <option value={["Colaborador","Gestor","ADM"]}>ADM</option>
+                </FormOptions>
+                
+                <Label htmlFor="user_sector">Setor</Label>
+                <Input type="text" name="user_sector" value={userData.sector}/>
                 
                 <Label htmlFor="user_gestor">Gestor</Label>
                 <Input type="text" name="user_gestor" value={userData.manager}/>
@@ -56,7 +71,7 @@ export const SolicitationsRegister = () => {
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
-                        <th className="email">Email</th>
+                        <th>Email</th>
                         <th>Ação</th>
                     </tr>
                 </TableHead>
@@ -69,7 +84,7 @@ export const SolicitationsRegister = () => {
                                 <td key={key+1}>{key+1}</td>
                                 <td key={key+2} className="name">{user.name}</td>
                                 <td key={key+3} className="email"> {user.email}</td>
-                                <td key={key+4}><p className="button" onClick={HandleToggleModal}>Ativar</p></td>
+                                <td key={key+4}><p className="button" onClick={()=>HandleToggleModal(user.name, user.email)}>Ativar</p></td>
                             </tr>
                         ))
                     ) : (

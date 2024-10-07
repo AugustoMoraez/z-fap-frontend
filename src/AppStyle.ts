@@ -33,5 +33,14 @@ export const SubTitle = styled.h3`
     color: #333;
     margin-bottom: 25px;
 `;
+export const FormOptions = styled.select`
+    width: 100%;
+    max-width: 350px;
+    height: 40px;
+    border: 1px solid royalblue;
+    border-radius: 5px;
+    outline: none;
+    margin-bottom: 10px;
+`; 
 
  

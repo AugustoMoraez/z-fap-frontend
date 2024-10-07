@@ -24,7 +24,7 @@ export const Table = styled.table`
         text-align: center;
         padding: 3px 5px;
         border-radius: 5px;
-        
+        border: 1px solid royalblue;
     }
     .row:hover{
         background-color: #f0f0f0;
