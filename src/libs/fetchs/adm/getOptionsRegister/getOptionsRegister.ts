@@ -1,11 +1,14 @@
 import { sector } from "../../../types/sector";
 import { BaseApi } from "../../axiosConfig"; 
 
-const fetchData = async (): Promise<{data:sector[]}> => {
+const getOptionsRegister = async (): Promise<sector[]> => {
+    
     const response = await BaseApi.get<{data:sector[]}>("/register-options");
-    return response.data
+   
+    return response.data.data
+
 };
 
 
 
-export default fetchData;
+export default getOptionsRegister;

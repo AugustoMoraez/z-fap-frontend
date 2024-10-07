@@ -5,11 +5,10 @@ import { ModalForm } from "../../../components/modalForm";
 import { Label,Input, FormOptions } from "../../../AppStyle";
 import { useState } from "react";
 import useSoliciationsQuery from "../../../libs/fetchs/adm/solicitations-request/customQuery";
-import useOptionsRegisterQuery from "../../../libs/fetchs/adm/options-register/customQuery";
 
 export const SolicitationsRegister = () => {
     const {listSolicitations,isLoading } = useSoliciationsQuery();
-    const{optionsRegister} = useOptionsRegisterQuery()
+   
     const[toggle,setToggle] = useState<"none"|"flex">("none")
     const[userData,setUserData]=useState({
         name:"",
@@ -19,7 +18,8 @@ export const SolicitationsRegister = () => {
         sector:"",
         position:""
     })
-     console.log(optionsRegister)
+  
+     
     const HandleToggleModal = (name:string,email:string) => {
         setUserData({
             ...userData,
