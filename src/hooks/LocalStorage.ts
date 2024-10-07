@@ -7,7 +7,7 @@ export const getLocalStorage = <T = unknown>(key:string) => {
     
     return data;
    
-}
+};
 
 export const setLocalStorage = (key:string,data:any) => {
     localStorage.setItem(key, JSON.stringify(data))

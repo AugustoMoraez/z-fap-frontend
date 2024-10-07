@@ -26,6 +26,7 @@ export const Label = styled.label`
 export const Title = styled.h1`
     text-align: center;
     color: #333;
+    cursor:default;
 `;
 export const SubTitle = styled.h3`
     text-align: center;

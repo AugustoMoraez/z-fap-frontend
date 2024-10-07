@@ -25,7 +25,7 @@ export const Container = styled.div`
    width: 100%;
    max-width: 500px;
    min-height: 300px;
-   padding: 10px;
+   
    background-color: aliceblue;
    border-radius:10px;
    flex-direction:column;
@@ -33,5 +33,26 @@ export const Container = styled.div`
    justify-content: center;
    align-items: center;
 `;
-
+export const FormHeader = styled.div`
+   background-color: #15a4fa;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 7px 10px;
+   color: #fff;
+   margin-bottom: 25px;
+   h3{
+      margin:0;
+      color: #fff;
+   }
+   svg{
+      margin-left: auto;
+      font-size: 25px;
+      cursor: pointer;
+      &:hover{
+         scale:1.1;
+      }
+   }
+`;
  

@@ -20,6 +20,12 @@ export const Table = styled.table`
     border-collapse: collapse;
     margin-top: 20px;
     cursor: default;
+    .button{
+        text-align: center;
+        padding: 3px 5px;
+        border-radius: 5px;
+        
+    }
     .row:hover{
         background-color: #f0f0f0;
         cursor: pointer;

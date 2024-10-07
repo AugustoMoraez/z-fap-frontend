@@ -5,12 +5,14 @@ import { userType } from "../../../libs/shemas/userSchema"
 import { Container, Table, TableHead } from "./style"
 import { useQuery } from "react-query"
 import { ModalForm } from "../../../components/modalForm";
-import { Label,Input, Title,SubTitle } from "../../../AppStyle";
+import { Label,Input } from "../../../AppStyle";
 import { useState } from "react";
 
 export const SolicitationsRegister = () => {
+    const[toggle,setToggle] = useState<"none"|"flex">("none")
     const[userData,setUserData]=useState({
         name:"",
+        permissions:["Colaborador"],
         manager:"",
         position:""
     })
@@ -20,13 +22,23 @@ export const SolicitationsRegister = () => {
         return response.data
     })
     
+    const HandleToggleModal = () => {
+        setToggle("flex")
+         
+    } 
+
     return (
         <Container>
            
-            <ModalForm display="flex">
-                <SubTitle>Registrar em Setor</SubTitle>
+            <ModalForm display={toggle} subtitle="Registro de usuario" func={()=>setToggle("none")}>
                 <Label htmlFor="user_name">Usuario</Label>
                 <Input type="text" name="user_name" value={userData.name}/>
+               
+                <Label htmlFor="user_email">Email</Label>
+                <Input type="email" name="user_email" value={userData.name} disabled/>
+                
+                <Label htmlFor="user_permissions">Permissão</Label>
+                <Input type="text" name="user_permissions" value={userData.permissions}/>
                 
                 <Label htmlFor="user_gestor">Gestor</Label>
                 <Input type="text" name="user_gestor" value={userData.manager}/>
@@ -36,10 +48,8 @@ export const SolicitationsRegister = () => {
 
                 <Input type="submit" value={"Ativar usuario"} className="button"/>
             </ModalForm>
-            {isFetching ? 
-            <Load />
-            :
-      
+
+            {isFetching ? <Load /> :
 
             <Table>
                 <TableHead>
@@ -47,7 +57,7 @@ export const SolicitationsRegister = () => {
                         <th>ID</th>
                         <th>Nome</th>
                         <th className="email">Email</th>
-                        <th>Status</th>
+                        <th>Ação</th>
                     </tr>
                 </TableHead>
                 <tbody>
@@ -59,7 +69,7 @@ export const SolicitationsRegister = () => {
                                 <td key={key+1}>{key+1}</td>
                                 <td key={key+2} className="name">{user.name}</td>
                                 <td key={key+3} className="email"> {user.email}</td>
-                                <td key={key+4}>{user.active ?"Ativo" : "Pendente"}</td>
+                                <td key={key+4}><p className="button" onClick={HandleToggleModal}>Ativar</p></td>
                             </tr>
                         ))
                     ) : (
