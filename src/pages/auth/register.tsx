@@ -7,17 +7,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Load } from "../../components/loader";
 import { AxiosError } from "axios";
 import { BaseApi } from "../../libs/fetchs/axiosConfig";
-import { modalData, MsgModal } from "../../components/modal";
+import { modalErroData, ModalErro } from "../../components/modalErro";
 import { Input, Label, Title } from "../../AppStyle";
 
 
 export const Register = () => {
 
     const [loading, setLoad] = useState<boolean>(false)
-    const [modalData, setModalData] = useState<modalData>({
+    const [modalErroData, setModalErroData] = useState<modalErroData>({
         msg: "",
         on: false,
-        func: () => setModalData({...modalData,on:false})
+        func: () => setModalErroData({...modalErroData,on:false})
     })
 
     const nav = useNavigate();
@@ -34,21 +34,21 @@ export const Register = () => {
         if (e instanceof AxiosError) {
             {
                 e.response?.data.erro === "P2002" ?
-                setModalData({
-                    ...modalData,
+                setModalErroData({
+                    ...modalErroData,
                     msg: "Email que voce esta tentando usar ja esta cadastrado",
                     on: true,
                 })
                 :
-                setModalData({
-                    ...modalData,
+                setModalErroData({
+                    ...modalErroData,
                     msg: "Erro na requisição, tente novamente mais tarde",
                     on: true,
                 }) 
             }
         } else {
-            setModalData({
-                ...modalData,
+            setModalErroData({
+                ...modalErroData,
                 msg: "Erro nao catalogado, tente novamente mais tarde",
                 on: true,
             }) 
@@ -70,7 +70,7 @@ export const Register = () => {
                 })
 
                 console.log(response.data, response.status)
-                setModalData({
+                setModalErroData({
                     msg: "Solicitação de cadastro foi enviada, aguarde um ADM aceita-la",
                     on: true,
                     func:()=>{nav("/auth/login")}
@@ -82,8 +82,8 @@ export const Register = () => {
             }
 
         } else {
-            setModalData({
-                ...modalData,
+            setModalErroData({
+                ...modalErroData,
                 msg: "Emails ou senhas se diferem",
                 on: true,
             }) 
@@ -93,7 +93,7 @@ export const Register = () => {
     if (loading) {
         return (
             <>
-                <MsgModal msg={modalData.msg} on={modalData.on} func={modalData.func} />
+                <ModalErro msg={modalErroData.msg} on={modalErroData.on} func={modalErroData.func} />
                 <Load />
             </>
         )
@@ -101,7 +101,7 @@ export const Register = () => {
 
     return (
         <Container>
-            <MsgModal msg={modalData.msg} on={modalData.on} func={modalData.func} />
+            <ModalErro msg={modalErroData.msg} on={modalErroData.on} func={modalErroData.func} />
             <Form onSubmit={handleSubmit(handleRegisterUser)}>
                 <Title>Cadastre-se</Title>
 

@@ -6,7 +6,7 @@ import { ImExit } from "react-icons/im";
 import { useState } from "react";
 import { useDispatch} from "react-redux";
 import { setCurrentUser } from "../../libs/redux/user/userReducer";
-import { modalData,MsgModal } from "../modal";
+import { modalData,MsgModal } from "../modalErro";
 import { Navigate } from "../navigate";
 
 export const Header = () => {

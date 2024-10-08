@@ -4,7 +4,7 @@ import { Container, Form, Menssage } from "./style";
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { modalData,MsgModal } from "../../components/modal";
+import { modalErroData,ModalErro } from "../../components/modalErro";
 import { Load } from "../../components/loader";
 import { BaseApi } from "../../libs/fetchs/axiosConfig";
 import { AxiosError } from "axios";
@@ -17,10 +17,10 @@ import { Input, Label, Title } from "../../AppStyle";
 export const Login = () => {
 
     const [loading, setLoad] = useState<boolean>(false)
-    const [modalData, setModalData] = useState<modalData>({
+    const [modalErroData, setModalErroData] = useState<modalErroData>({
         msg: "",
         on: false,
-        func: () => setModalData({...modalData,on:false})
+        func: () => setModalErroData({...modalErroData,on:false})
     })
 
     const nav = useNavigate();
@@ -37,16 +37,16 @@ export const Login = () => {
         if(e instanceof AxiosError){
             if(e.response){
                 const msgErro = e.response.data.erro ? e.response.data.erro : "erro desconhecido"
-                setModalData({
-                    ...modalData,
+                setModalErroData({
+                    ...modalErroData,
                     on:true,     
                     msg:msgErro          
                 })
                 setLoad(false)
             }
         }else{
-            setModalData({
-                ...modalData,
+            setModalErroData({
+                ...modalErroData,
                 on:true,     
                 msg:"Erro: Chame o suporte"           
             })
@@ -67,14 +67,14 @@ export const Login = () => {
     if(loading){
         return(
             <Container>
-                <MsgModal msg={modalData.msg} on={modalData.on} func={modalData.func}/>
+                <ModalErro msg={modalErroData.msg} on={modalErroData.on} func={modalErroData.func}/>
                 <Load/>
             </Container>
         )
     }
     return(
         <Container>
-            <MsgModal msg={modalData.msg} on={modalData.on} func={modalData.func}/>
+            <ModalErro msg={modalErroData.msg} on={modalErroData.on} func={modalErroData.func}/>
             <Form onSubmit={handleSubmit(handleLogin)}>
                 <Title>Z-Fap Manager</Title>
                 <Label htmlFor="email">Email</Label>

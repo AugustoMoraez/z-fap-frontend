@@ -1,12 +1,12 @@
 import { Container,Modal } from "./style"
 
-export type modalData = {
+export type modalErroData = {
     on:boolean,
     msg?:string,
     func:()=>void,
 }
 
-export const MsgModal = (prop:modalData) => {
+export const ModalErro = (prop:modalErroData) => {
     return(
         <Container opacity={prop.on ?"flex" :"none"}>
             <Modal>
