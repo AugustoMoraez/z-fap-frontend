@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
- 
+
 type toogleBackground = {
-    display: "none"|"flex"
+   display: "none" | "flex"
 }
 
 export const Background = styled.div<toogleBackground>`
@@ -16,9 +16,9 @@ export const Background = styled.div<toogleBackground>`
    align-items: center;
    z-index: 99;
    padding: 10px;
-   display: ${prop=>prop.display};
+   display: ${prop => prop.display};
    *{
-    display: ${prop=>prop.display};
+    display: ${prop => prop.display};
    }
 `;
 export const Container = styled.div`
@@ -32,6 +32,14 @@ export const Container = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
+
+   form{
+      width: 100%;
+      flex-direction:column;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
 `;
 export const FormHeader = styled.div`
    background-color: #15a4fa;
@@ -55,4 +63,3 @@ export const FormHeader = styled.div`
       }
    }
 `;
- 
