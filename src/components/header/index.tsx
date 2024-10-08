@@ -6,16 +6,16 @@ import { ImExit } from "react-icons/im";
 import { useState } from "react";
 import { useDispatch} from "react-redux";
 import { setCurrentUser } from "../../libs/redux/user/userReducer";
-import { modalData,MsgModal } from "../modalErro";
+import { modalErroData,ModalErro } from "../modalErro";
 import { Navigate } from "../navigate";
 
 export const Header = () => {
 
     const[toggleMenu,setToggleMenu] =useState<boolean>(false)
-    const [modalData, setModalData] = useState<modalData>({
+    const [modalErroData, setModalErroData] = useState<modalErroData>({
         msg: "Voce nao tem autorização",
         on: false,
-        func: () => setModalData({...modalData,on:false})
+        func: () => setModalErroData({...modalErroData,on:false})
     })
     const user = useAppSelector(state => state.user.CurrentUser)
     const dispatch = useDispatch();
@@ -28,10 +28,10 @@ export const Header = () => {
     return(
        <Container >
         <SubContainer>
-            <MsgModal 
-            on={modalData.on} 
-            msg={modalData.msg} 
-            func={modalData.func}/>
+            <ModalErro 
+            on={modalErroData.on} 
+            msg={modalErroData.msg} 
+            func={modalErroData.func}/>
 
             <MenuContainer>
                 <IconProfile onClick={()=> setToggleMenu(!toggleMenu)}>
