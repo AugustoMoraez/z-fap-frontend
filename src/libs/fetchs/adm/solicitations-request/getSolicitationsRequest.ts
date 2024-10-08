@@ -1,13 +1,13 @@
 import { userType } from "../../../schemas/userSchema";
 import { BaseApi } from "../../axiosConfig"; 
 
-const fetchData = async (): Promise<{data:userType[]}> => {
+const getSolicitationsRequest = async (): Promise<userType[]> => {
     
     const response = await BaseApi.get<{data:userType[]}>("/solicitations-request");
-    return response.data
+    return response.data.data
 
 };
 
 
 
-export default fetchData;
+export default getSolicitationsRequest;

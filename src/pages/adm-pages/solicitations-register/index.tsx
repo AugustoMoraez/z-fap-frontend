@@ -4,15 +4,15 @@ import { Container, Table, TableHead } from "./style"
 import { ModalForm } from "../../../components/modalForm";
 import { Label,Input, FormOptions } from "../../../AppStyle";
 import { useState } from "react";
-import useSoliciationsQuery from "../../../libs/fetchs/adm/solicitations-request/customQuery";
-import useOptionsRegisterQuery from "../../../libs/fetchs/adm/registerOptions/customQuery";
-import fetchData from "../../../libs/fetchs/adm/registerOptions/fetchData";
 import { useQuery } from "react-query";
 import { sector } from "../../../libs/types/sector";
+import { userType } from "../../../libs/schemas/userSchema";
+import getSolicitationsRequest from "../../../libs/fetchs/adm/solicitations-request/getSolicitationsRequest";
+import getOptionsRegister from "../../../libs/fetchs/adm/registerOptions/getOptionsRegister";
 
 export const SolicitationsRegister = () => {
-    const {listSolicitations,isLoading } = useSoliciationsQuery();
-    const { data:optionsRegister ,isLoading:optionsLoad} = useQuery<sector[]>("optionsRegister", fetchData, { retry: 1 });
+    const { data:listSolicitations, isLoading } = useQuery<userType[]>("solicitationsRequest", getSolicitationsRequest, { retry: 1 });
+    const { data:optionsRegister ,isLoading:optionsLoad} = useQuery<sector[]>("optionsRegister", getOptionsRegister, { retry: 1 });
    
     const[toggle,setToggle] = useState<"none"|"flex">("none")
     const[userData,setUserData]=useState({

@@ -1,6 +1,6 @@
 import { BaseApi } from "../../axiosConfig"; 
 
-const fetchData = async () => {
+const getOptionsRegister = async () => {
     
     const response = await BaseApi.get("/register-options");
     return response.data
@@ -9,4 +9,4 @@ const fetchData = async () => {
 
 
 
-export default fetchData;
+export default getOptionsRegister;
