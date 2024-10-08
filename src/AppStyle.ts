@@ -46,6 +46,7 @@ export const FormOptions = styled.select`
     margin-bottom: 10px;
 `; 
 export const ErroSpan = styled.span`
+    color:red;
     font-size: 14px;
     margin-top: -5px;
     margin-bottom: 10px;

@@ -21,6 +21,11 @@ export const SolicitationsRegister = () => {
         id:"",
         name: "",
         email: "",
+        permissions:[
+            ["Colaborador"],
+            ["Colaborador","Gestor"],
+            ["Colaborador","Gestor","ADM"],
+        ]
     })
 
     const HandleToggleModal = (id:string,name: string, email: string) => {
@@ -43,11 +48,12 @@ export const SolicitationsRegister = () => {
     console.log(errors)
     const onSubmit = (data: activateUserType) => {
         console.log(
-            data.id,
+            userData.id,
             data.sectorID,
             data.position,
-            data.permissions            
+            data.permissions.split(",")           
         );
+        
         
     };
    
@@ -77,9 +83,9 @@ export const SolicitationsRegister = () => {
 
                     <Label htmlFor="user_permissions">Permissão</Label>
                     <FormOptions {...register("permissions")} >
-                        <option value="Colaborador">Colaborador</option>
-                        <option value="Gestor">Gestor</option>
-                        <option value="ADM">ADM</option>
+                        <option value={userData.permissions[0]}>Colaborador</option>
+                        <option value={userData.permissions[1]}>Gestor</option>
+                        <option value={userData.permissions[2]}>ADM</option>
                     </FormOptions>
 
                     <Label htmlFor="user_sector">Setor</Label>
@@ -102,7 +108,6 @@ export const SolicitationsRegister = () => {
 
                     <Label htmlFor="user_position">Cargo</Label>
                     <FormOptions {...register("position")}>
-                        <option >Selecione cargo</option>
                         {availablePositions.map(position => (
                             <option key={position} value={position}>{position}</option>
                         ))}
