@@ -1,4 +1,3 @@
-
 import { Load } from "../../../components/loader";
 import { Container, Table, TableHead } from "./style"
 import { ModalForm } from "../../../components/modalForm";
@@ -7,7 +6,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { sector } from "../../../libs/types/sector";
 import { userType } from "../../../libs/schemas/userSchema";
-import getSolicitationsRequest from "../../../libs/fetchs/adm/solicitations-request/getSolicitationsRequest";
+import getSolicitationsRequest from "../../../libs/fetchs/adm/solicitationsRequest/getSolicitationsRequest";
 import getOptionsRegister from "../../../libs/fetchs/adm/registerOptions/getOptionsRegister";
 
 export const SolicitationsRegister = () => {
