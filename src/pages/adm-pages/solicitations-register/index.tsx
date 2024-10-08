@@ -1,7 +1,7 @@
 import { Load } from "../../../components/loader";
 import { Container, Table, TableHead } from "./style"
 import { ModalForm } from "../../../components/modalForm";
-import { Label, Input, FormOptions } from "../../../AppStyle";
+import { Label, Input, FormOptions, ErroSpan } from "../../../AppStyle";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { sector } from "../../../libs/types/sector";
@@ -15,20 +15,18 @@ import { activateUserType, userActivateSchema } from "../../../libs/schemas/auth
 export const SolicitationsRegister = () => {
     const { data: listSolicitations, isLoading } = useQuery<userType[]>("solicitationsRequest", getSolicitationsRequest, { retry: 1 });
     const { data: optionsRegister, isLoading: optionsLoad } = useQuery<sector[]>("optionsRegister", getOptionsRegister, { retry: 1 });
-
+    const [availablePositions, setAvailablePositions] = useState<string[]>([]);
     const [toggle, setToggle] = useState<"none" | "flex">("none")
     const [userData, setUserData] = useState({
+        id:"",
         name: "",
         email: "",
-        permissions: ["Colaborador"],
-        manager: "",
-        sector: "",
-        position: ""
     })
 
-    const HandleToggleModal = (name: string, email: string) => {
+    const HandleToggleModal = (id:string,name: string, email: string) => {
         setUserData({
             ...userData,
+            id,
             name,
             email
         })
@@ -42,8 +40,25 @@ export const SolicitationsRegister = () => {
     } = useForm<activateUserType>({
         resolver: zodResolver(userActivateSchema),
     });
+    console.log(errors)
     const onSubmit = (data: activateUserType) => {
-        console.log(data);
+        console.log(
+            data.id,
+            data.sectorID,
+            data.position,
+            data.permissions            
+        );
+        
+    };
+   
+    const handleSectorChange = (sectorId: string) => {
+        const sector =  optionsRegister?.find(sec => sec.id === sectorId);
+        if (sector) {
+            setAvailablePositions(sector.positions);
+            setUserData(prev => ({ ...prev, sector: sectorId, position: "" })); // Reset position
+        } else {
+            setAvailablePositions([]);
+        }
     };
     return (
         <Container>
@@ -52,6 +67,8 @@ export const SolicitationsRegister = () => {
 
 
 
+                    <Input className="hidden"  type="text" value={userData.id} {...register("id")} />
+
                     <Label htmlFor="user_name">Usuario</Label>
                     <Input type="text" name="user_name" value={userData.name} disabled />
 
@@ -59,16 +76,14 @@ export const SolicitationsRegister = () => {
                     <Input type="email" name="user_email" value={userData.email} disabled />
 
                     <Label htmlFor="user_permissions">Permissão</Label>
-
-                    <FormOptions {...register("permissions")}>
-                        <option value={["Colaborador"]}>Colaborador</option>
-                        <option value={["Colaborador", "Gestor"]}>Gestor</option>
-                        <option value={["Colaborador", "Gestor", "ADM"]}>ADM</option>
+                    <FormOptions {...register("permissions")} >
+                        <option value="Colaborador">Colaborador</option>
+                        <option value="Gestor">Gestor</option>
+                        <option value="ADM">ADM</option>
                     </FormOptions>
 
                     <Label htmlFor="user_sector">Setor</Label>
-
-                    <FormOptions {...register("sectorID")}>
+                    <FormOptions {...register("sectorID")} onChange={(e) => handleSectorChange(e.target.value)}>
                         {
                             optionsLoad ?
                                 <option disabled>Carregando</option>
@@ -77,14 +92,22 @@ export const SolicitationsRegister = () => {
                                     {
                                         optionsRegister && optionsRegister.map(option => (
                                             option.name !== "Sem Setor" &&
-                                            <option key={option.id} value={option.id} onClick={() => setUserData({ ...userData, sector: option.id })}>{option.name}</option>
+                                            <option key={option.id} value={option.id} >{option.name}</option>
                                         ))
                                     }
                                 </>
 
                         }
                     </FormOptions>
-                        
+
+                    <Label htmlFor="user_position">Cargo</Label>
+                    <FormOptions {...register("position")}>
+                        <option >Selecione cargo</option>
+                        {availablePositions.map(position => (
+                            <option key={position} value={position}>{position}</option>
+                        ))}
+                    </FormOptions>
+                    {availablePositions.length==0 && <ErroSpan>Selecione o setor antes</ErroSpan>}
 
                     <Input type="submit" value={"Ativar usuario"} className="button" />
                 </form>
@@ -111,7 +134,7 @@ export const SolicitationsRegister = () => {
                                         <td key={key + 1}>{key + 1}</td>
                                         <td key={key + 2} className="name">{user.name}</td>
                                         <td key={key + 3} className="email"> {user.email}</td>
-                                        <td key={key + 4}><p className="button" onClick={() => HandleToggleModal(user.name, user.email)}>Ativar</p></td>
+                                        <td key={key + 4}><p className="button" onClick={() => HandleToggleModal(user.id as string,user.name, user.email)}>Ativar</p></td>
                                     </tr>
                                 ))
                             ) : (

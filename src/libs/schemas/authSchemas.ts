@@ -21,9 +21,9 @@ export type userRegisterType = z.infer<typeof userRegisterSchema>
 
 // activateUserSchema
 export const userActivateSchema = z.object({
-    id: z.string().uuid(),
-    sectorID: z.string().uuid(),
+    id: z.string(),
+    sectorID: z.string(),
     position: z.string(),
-    permissions: z.string().array()
+    permissions: z.string() 
 })
 export type activateUserType = z.infer<typeof userActivateSchema>

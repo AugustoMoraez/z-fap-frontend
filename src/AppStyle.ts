@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-export const Container = styled.div`  
+export const Container = styled.div`
+    .hidden{
+        display: none;
+    }  
 `;
 export const Main = styled.main`
     padding-top: 120px;
@@ -42,5 +45,14 @@ export const FormOptions = styled.select`
     outline: none;
     margin-bottom: 10px;
 `; 
+export const ErroSpan = styled.span`
+    font-size: 14px;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 350px;
+
+
+`;
 
  
