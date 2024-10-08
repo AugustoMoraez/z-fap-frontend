@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export const Navigate = () => {
     const[toogle,setToogle] = useState(false);
     const nav = useNavigate();
-    const user = useAppSelector(state => state.user.CurrentUser)
+    const user = useAppSelector(state=> state.user.CurrentUser)
     const permissions = user?.data.permissions ? user?.data.permissions :[""] 
     const menuOptions:dataMenuOption = getMenuOptions(permissions);
     
@@ -24,24 +24,21 @@ export const Navigate = () => {
             </Bar>
             <MenuContainer width={toogle ? "350px" : "0px"}>
                 {
-                    menuOptions.map(item => (
+                    menuOptions.map((item,itemIndex) => (
                         item.rotas.map(rota=>(
-                            <NavContainer>
+                            <NavContainer key={`${itemIndex}-${rota.title}`}>
                                 <SectionTitle href={"#"+rota.title}>{rota.title.split("-").join(" ")}</SectionTitle>
                                 <Nav id={rota.title} key={rota.title}>
                                     {
-                                        rota.subrotas.map((subrota,key)=>(
-                                            <NavItem  key={key} onClick={()=>redirect(`/${rota.title}/${subrota}`)}>{subrota.split("-").join(" ")}</NavItem>
+                                        rota.subrotas.map((subrota, subrotaIndex)=>(
+                                            <NavItem  key={ subrotaIndex} onClick={()=>redirect(`/${rota.title}/${subrota}`)}>{subrota.split("-").join(" ")}</NavItem>
                                         ))
                                     }
                                 </Nav>
                             </NavContainer>
                         ))
                     ))
-                }
-              
-              
-                
+                } 
             </MenuContainer>
        </>
         

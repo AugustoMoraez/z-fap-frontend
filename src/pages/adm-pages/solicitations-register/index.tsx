@@ -38,7 +38,7 @@ export const SolicitationsRegister = () => {
            
             <ModalForm display={toggle} subtitle="Registro de usuario" func={()=>setToggle("none")}>
                 <Label htmlFor="user_name">Usuario</Label>
-                <Input type="text" name="user_name" value={userData.name}/>
+                <Input type="text" name="user_name" value={userData.name} disabled/>
                
                 <Label htmlFor="user_email">Email</Label>
                 <Input type="email" name="user_email" value={userData.email} disabled/>
