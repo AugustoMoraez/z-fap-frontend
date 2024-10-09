@@ -6,32 +6,38 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { sector } from "../../../libs/types/sector";
 import { userType } from "../../../libs/schemas/userSchema";
-import getSolicitationsRequest from "../../../libs/fetchs/adm/solicitationsRequest/getSolicitationsRequest";
-import getOptionsRegister from "../../../libs/fetchs/adm/registerOptions/getOptionsRegister";
+import getSolicitationsRequest from "../../../libs/fetchs/adm-pages/SolicitationsRegister/getSolicitationsRequest";
+import getOptionsRegister from "../../../libs/fetchs/adm-pages/SolicitationsRegister/getOptionsRegister";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { activateUserType, userActivateSchema } from "../../../libs/schemas/authSchemas";
-import { ModalErro} from "../../../components/modalErro"
+import { activateUserRegistration } from "../../../libs/fetchs/adm-pages/SolicitationsRegister/activateUserRegistration";
 
 
 export const SolicitationsRegister = () => {
     const { data: listSolicitations, isLoading } = useQuery<userType[]>("solicitationsRequest", getSolicitationsRequest, { retry: 1 });
     const { data: optionsRegister, isLoading: optionsLoad } = useQuery<sector[]>("optionsRegister", getOptionsRegister, { retry: 1 });
+
     const [availablePositions, setAvailablePositions] = useState<string[]>([]);
     const [toggleForm, setToggleForm] = useState<"none" | "flex">("none")
-    const [toggleErroModal, setToggleErroModal] = useState(false)
+    
     const [userData, setUserData] = useState({
         id: "",
         name: "",
         email: "",
         permissions: [
             ["Colaborador"],
-            ["Colaborador","Gestor"],
-            ["Colaborador","Gestor","ADM"],
-    ],
-
+            ["Colaborador", "Gestor"],
+            ["Colaborador", "Gestor", "ADM"],
+        ]
     })
-    
+
+    const {
+        register,
+        handleSubmit,
+    } = useForm<activateUserType>({
+        resolver: zodResolver(userActivateSchema),
+    });
 
     const HandleToggleModal = (id: string, name: string, email: string) => {
         setUserData({
@@ -41,28 +47,26 @@ export const SolicitationsRegister = () => {
             email
         })
         setToggleForm("flex")
-
     }
-    const {
-        register,
-        handleSubmit,
-        formState: { errors }
-    } = useForm<activateUserType>({
-        resolver: zodResolver(userActivateSchema),
-    });
-    console.log(errors)
+
     const onSubmit = (data: activateUserType) => {
         const sector = optionsRegister?.find(sec => sec.id === data.sectorID);
-        if(sector && sector.positions.includes(data.position)){
-            console.log(
-                userData.id,
-                data.sectorID,
-                data.position,
-                data.permissions.split(",")
-            );
-            
-        }else{
-            setToggleErroModal(true)
+
+        if (sector && sector.positions.includes(data.position)) {
+            activateUserRegistration({
+                id: userData.id,
+                sectorID: data.sectorID,
+                position: data.position,
+                permissions: data.permissions
+            }).then(() => {
+                setToggleForm("none"); // Fechar o modal de registro
+                //modal de sucesso
+            }).catch((error) => {
+                console.error("Erro ao ativar usuário:", error);
+               //modal de erro
+            });
+        } else {
+            //modal solicitando selecionar um setor
         }
     };
 
@@ -70,26 +74,22 @@ export const SolicitationsRegister = () => {
         const sector = optionsRegister?.find(sec => sec.id === sectorId);
         if (sector) {
             setAvailablePositions([]);
-            setTimeout(()=>setAvailablePositions(sector.positions), 100);
-            
+            setTimeout(() => setAvailablePositions(sector.positions), 100);
         } else {
             setAvailablePositions([]);
         }
-    }; 
-   
+    };
+
     return (
         <Container>
             <ModalForm display={toggleForm} subtitle="Registro de usuario" func={() => setToggleForm("none")}>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
-                     {
-                        toggleErroModal && 
-                        <ModalErro 
-                        msg="Selecione o setor" 
-                        on={toggleErroModal} 
-                        func={()=> setToggleErroModal(false)}
-                        />
-                     }
+
+                    {
+                        //condicao && //modal
+                    }
+
 
                     <Input className="hidden" type="text" value={userData.id} {...register("id")} />
 
@@ -126,17 +126,17 @@ export const SolicitationsRegister = () => {
                     </FormOptions>
                     {
                         availablePositions.length > 0 ?
-                        <>
-                            <Label htmlFor="user_position">Cargo</Label>
-                            <FormOptions {...register("position")} >
-                            <option key={"0"} value={""} >Selecionar</option>
-                                {availablePositions.map(position => (
-                                    <option key={position} value={position}>{position}</option>
-                                ))}
-                            </FormOptions>
+                            <>
+                                <Label htmlFor="user_position">Cargo</Label>
+                                <FormOptions {...register("position")} >
+                                    <option key={"0"} value={""} >Selecionar</option>
+                                    {availablePositions.map(position => (
+                                        <option key={position} value={position}>{position}</option>
+                                    ))}
+                                </FormOptions>
 
-                        </>:
-                        <></>
+                            </> :
+                            <></>
                     }
 
                     <Input type="submit" value={"Ativar usuario"} className="button" />

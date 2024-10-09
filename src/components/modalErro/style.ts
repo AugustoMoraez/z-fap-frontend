@@ -5,7 +5,7 @@ type ContainerProp = {
     opacity:string
 }
 
-export const Container = styled.div<ContainerProp>`
+export const ModalContainer = styled.div<ContainerProp>`
     width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0,0.7);
