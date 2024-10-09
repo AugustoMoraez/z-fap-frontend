@@ -1,7 +1,7 @@
 
 const menuOptions =[
 	{
-		rule:"Colaborador",
+		rule:"colaborador",
 		rotas:[
 			{
 			title:"Meu-perfil",
@@ -13,7 +13,7 @@ const menuOptions =[
 		]
 	},
 	{
-		rule:"Gestor",
+		rule:"gestor",
 		rotas:[
 			{
 			title:"Gestão",
@@ -25,7 +25,7 @@ const menuOptions =[
 		]	
 	},
 	{
-		rule:"ADM",
+		rule:"adm",
 		rotas:[
 			{
 			title:"Administração-ZFAP",
@@ -49,15 +49,17 @@ export type dataMenuOption = {
 }[]
 
 export const getMenuOptions =  (permissions:string[]):dataMenuOption => {
-	
-	if(!permissions.includes("Gestor")){
-		menuOptions.filter(item => item.rule ==="Gestor")
+	const permissionsArrayLowercase = permissions.join().toLowerCase().split(",")
+	let ListPermissions= [menuOptions[0]]
+	if(permissionsArrayLowercase.includes("gestor")){
+		ListPermissions.push(menuOptions[1])
 	}
-	if(!permissions.includes("ADM")){
-		menuOptions.filter(item => item.rule ==="ADM")
+	if(permissionsArrayLowercase.includes("adm")){
+		ListPermissions.push(menuOptions[2])
 	}
+	console.log({getOptions:ListPermissions})
 	
-    return menuOptions;
+    return ListPermissions;
     
 }
 

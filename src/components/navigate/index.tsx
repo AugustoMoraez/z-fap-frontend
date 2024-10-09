@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { dataMenuOption, getMenuOptions } from "./dataMenu";
 import { Bar,Nav,NavItem,MenuContainer,SectionTitle,NavContainer} from "./style";
@@ -6,25 +6,31 @@ import { TfiMenuAlt } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
 
 export const Navigate = () => {
-    const[toogle,setToogle] = useState(false);
+    const[toggle,setToggle] = useState(false);
     const nav = useNavigate();
     const user = useAppSelector(state=> state.user.CurrentUser)
     const permissions = user?.data.permissions ? user?.data.permissions :[""] 
-    const menuOptions:dataMenuOption = getMenuOptions(permissions);
-    
+    const[validOptions,setValidOptions] = useState<dataMenuOption>([])
+    {console.log(validOptions)}
+    useEffect(()=>{
+        setValidOptions(getMenuOptions(permissions))  
+        {console.log(validOptions)}
+
+    },[permissions])
     const redirect = (url:string) => {
-        setToogle(false);
+        setToggle(false);
         nav(url);
     }
 
     return(
        <>
             <Bar>
-                <TfiMenuAlt onClick={()=> setToogle(!toogle)} />
+                <TfiMenuAlt onClick={()=> setToggle(!toggle)} />
             </Bar>
-            <MenuContainer width={toogle ? "350px" : "0px"}>
+            <MenuContainer width={toggle ? "350px" : "0px"}>
+               
                 {
-                    menuOptions.map((item,itemIndex) => (
+                    validOptions.map((item,itemIndex) => (
                         item.rotas.map(rota=>(
                             <NavContainer key={`${itemIndex}-${rota.title}`}>
                                 <SectionTitle href={"#"+rota.title}>{rota.title.split("-").join(" ")}</SectionTitle>
