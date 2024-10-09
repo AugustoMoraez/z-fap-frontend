@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { activateUserType, userActivateSchema } from "../../../libs/schemas/authSchemas";
 import { activateUserRegistration } from "../../../libs/fetchs/adm-pages/SolicitationsRegister/activateUserRegistration";
-
+import { modalErroData,ModalErro } from "../../../components/modalErro";
 
 export const SolicitationsRegister = () => {
     const { data: listSolicitations, isLoading } = useQuery<userType[]>("solicitationsRequest", getSolicitationsRequest, { retry: 1 });
@@ -21,6 +21,11 @@ export const SolicitationsRegister = () => {
     const [availablePositions, setAvailablePositions] = useState<string[]>([]);
     const [toggleForm, setToggleForm] = useState<"none" | "flex">("none")
     
+    const [modalErroData, setModalErroData] = useState<modalErroData>({
+        msg: "",
+        on: false,
+        func: () => setModalErroData({...modalErroData,on:false})
+    })
     const [userData, setUserData] = useState({
         id: "",
         name: "",
@@ -59,14 +64,15 @@ export const SolicitationsRegister = () => {
                 position: data.position,
                 permissions: data.permissions
             }).then(() => {
-                setToggleForm("none"); // Fechar o modal de registro
-                //modal de sucesso
+                setModalErroData({...modalErroData,msg:"Usuario ativo com sucesso",on:true})
+                setToggleForm("none"); 
+                 
             }).catch((error) => {
-                console.error("Erro ao ativar usuário:", error);
-               //modal de erro
+                setModalErroData({...modalErroData,msg:"Erro: chame o suporte",on:true})
             });
         } else {
-            //modal solicitando selecionar um setor
+            
+            setModalErroData({...modalErroData,msg:"Selecione um setor novamente",on:true})
         }
     };
 
@@ -82,13 +88,13 @@ export const SolicitationsRegister = () => {
 
     return (
         <Container>
+            <ModalErro msg={modalErroData.msg} on={modalErroData.on} func={modalErroData.func}/>
             <ModalForm display={toggleForm} subtitle="Registro de usuario" func={() => setToggleForm("none")}>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
 
-                    {
-                        //condicao && //modal
-                    }
+                    <>
+                    </>
 
 
                     <Input className="hidden" type="text" value={userData.id} {...register("id")} />

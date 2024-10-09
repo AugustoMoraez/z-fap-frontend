@@ -14,7 +14,7 @@ export const Background = styled.div<toogleBackground>`
    position: fixed;
    justify-content: center;
    align-items: center;
-   z-index: 99;
+   z-index: 97;
    padding: 10px;
    display: ${prop => prop.display};
    *{
