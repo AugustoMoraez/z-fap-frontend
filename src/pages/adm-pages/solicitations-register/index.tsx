@@ -11,17 +11,19 @@ import getOptionsRegister from "../../../libs/fetchs/adm/registerOptions/getOpti
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { activateUserType, userActivateSchema } from "../../../libs/schemas/authSchemas";
+import { ModalErro} from "../../../components/modalErro"
+
 
 export const SolicitationsRegister = () => {
     const { data: listSolicitations, isLoading } = useQuery<userType[]>("solicitationsRequest", getSolicitationsRequest, { retry: 1 });
     const { data: optionsRegister, isLoading: optionsLoad } = useQuery<sector[]>("optionsRegister", getOptionsRegister, { retry: 1 });
     const [availablePositions, setAvailablePositions] = useState<string[]>([]);
-    const [toggle, setToggle] = useState<"none" | "flex">("none")
+    const [toggleForm, setToggleForm] = useState<"none" | "flex">("none")
+    const [toggleErroModal, setToggleErroModal] = useState(false)
     const [userData, setUserData] = useState({
         id: "",
         name: "",
         email: "",
-        position:"",
         permissions: [
             ["Colaborador"],
             ["Colaborador","Gestor"],
@@ -29,6 +31,7 @@ export const SolicitationsRegister = () => {
     ],
 
     })
+    
 
     const HandleToggleModal = (id: string, name: string, email: string) => {
         setUserData({
@@ -37,7 +40,7 @@ export const SolicitationsRegister = () => {
             name,
             email
         })
-        setToggle("flex")
+        setToggleForm("flex")
 
     }
     const {
@@ -49,26 +52,24 @@ export const SolicitationsRegister = () => {
     });
     console.log(errors)
     const onSubmit = (data: activateUserType) => {
-        console.log(
-            userData.id,
-            data.sectorID,
-            userData.position,
-            data.permissions.split(",")
-        );
-        console.log(
-             
-            {data:userData.position}
+        const sector = optionsRegister?.find(sec => sec.id === data.sectorID);
+        if(sector && sector.positions.includes(data.position)){
+            console.log(
+                userData.id,
+                data.sectorID,
+                data.position,
+                data.permissions.split(",")
+            );
             
-        );
-
-
+        }else{
+            setToggleErroModal(true)
+        }
     };
 
     const handleSectorChange = (sectorId: string) => {
         const sector = optionsRegister?.find(sec => sec.id === sectorId);
         if (sector) {
             setAvailablePositions([]);
-            setUserData({...userData,position:""})
             setTimeout(()=>setAvailablePositions(sector.positions), 100);
             
         } else {
@@ -78,10 +79,17 @@ export const SolicitationsRegister = () => {
    
     return (
         <Container>
-            <ModalForm display={toggle} subtitle="Registro de usuario" func={() => setToggle("none")}>
+            <ModalForm display={toggleForm} subtitle="Registro de usuario" func={() => setToggleForm("none")}>
+
                 <form onSubmit={handleSubmit(onSubmit)}>
-
-
+                     {
+                        toggleErroModal && 
+                        <ModalErro 
+                        msg="Selecione o setor" 
+                        on={toggleErroModal} 
+                        func={()=> setToggleErroModal(false)}
+                        />
+                     }
 
                     <Input className="hidden" type="text" value={userData.id} {...register("id")} />
 
@@ -120,7 +128,7 @@ export const SolicitationsRegister = () => {
                         availablePositions.length > 0 ?
                         <>
                             <Label htmlFor="user_position">Cargo</Label>
-                            <FormOptions {...register("position")} onChange={(e)=>setUserData({...userData,position:e.target.value})}>
+                            <FormOptions {...register("position")} >
                             <option key={"0"} value={""} >Selecionar</option>
                                 {availablePositions.map(position => (
                                     <option key={position} value={position}>{position}</option>

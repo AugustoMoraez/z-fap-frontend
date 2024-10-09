@@ -9,7 +9,6 @@ export const Container = styled.div<ContainerProp>`
     width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0,0.7);
-    position: relative;
     position: absolute;
     z-index: 99;
     display: ${(props)=> props.opacity };
@@ -26,6 +25,7 @@ export const Modal = styled.div`
     align-items: center;
     flex-direction: column;
     position: absolute;
+    z-index: 99;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
@@ -41,7 +41,7 @@ export const Modal = styled.div`
         padding: 5px;
         background-color: royalblue;
         color: white;
-
+        justify-content: center;
         &:hover{
             opacity: 0.7;
             cursor: pointer;
