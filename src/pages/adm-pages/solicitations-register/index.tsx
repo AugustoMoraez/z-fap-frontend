@@ -1,7 +1,7 @@
 import { Load } from "../../../components/loader";
 import { Container, Table, TableHead } from "./style"
 import { ModalForm } from "../../../components/modalForm";
-import { Label, Input, FormOptions, ErroSpan } from "../../../AppStyle";
+import { Label, Input, FormOptions } from "../../../AppStyle";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { sector } from "../../../libs/types/sector";
@@ -18,17 +18,19 @@ export const SolicitationsRegister = () => {
     const [availablePositions, setAvailablePositions] = useState<string[]>([]);
     const [toggle, setToggle] = useState<"none" | "flex">("none")
     const [userData, setUserData] = useState({
-        id:"",
+        id: "",
         name: "",
         email: "",
-        permissions:[
+        position:"",
+        permissions: [
             ["Colaborador"],
             ["Colaborador","Gestor"],
             ["Colaborador","Gestor","ADM"],
-        ]
+    ],
+
     })
 
-    const HandleToggleModal = (id:string,name: string, email: string) => {
+    const HandleToggleModal = (id: string, name: string, email: string) => {
         setUserData({
             ...userData,
             id,
@@ -50,22 +52,30 @@ export const SolicitationsRegister = () => {
         console.log(
             userData.id,
             data.sectorID,
-            data.position,
-            data.permissions.split(",")           
+            userData.position,
+            data.permissions.split(",")
         );
-        
-        
+        console.log(
+             
+            {data:userData.position}
+            
+        );
+
+
     };
-   
+
     const handleSectorChange = (sectorId: string) => {
-        const sector =  optionsRegister?.find(sec => sec.id === sectorId);
+        const sector = optionsRegister?.find(sec => sec.id === sectorId);
         if (sector) {
-            setAvailablePositions(sector.positions);
-            setUserData(prev => ({ ...prev, sector: sectorId, position: "" })); // Reset position
+            setAvailablePositions([]);
+            setUserData({...userData,position:""})
+            setTimeout(()=>setAvailablePositions(sector.positions), 100);
+            
         } else {
             setAvailablePositions([]);
         }
-    };
+    }; 
+   
     return (
         <Container>
             <ModalForm display={toggle} subtitle="Registro de usuario" func={() => setToggle("none")}>
@@ -73,7 +83,7 @@ export const SolicitationsRegister = () => {
 
 
 
-                    <Input className="hidden"  type="text" value={userData.id} {...register("id")} />
+                    <Input className="hidden" type="text" value={userData.id} {...register("id")} />
 
                     <Label htmlFor="user_name">Usuario</Label>
                     <Input type="text" name="user_name" value={userData.name} disabled />
@@ -95,6 +105,7 @@ export const SolicitationsRegister = () => {
                                 <option disabled>Carregando</option>
                                 :
                                 <>
+                                    <option value={""}>Selecionar</option>
                                     {
                                         optionsRegister && optionsRegister.map(option => (
                                             option.name !== "Sem Setor" &&
@@ -105,14 +116,20 @@ export const SolicitationsRegister = () => {
 
                         }
                     </FormOptions>
+                    {
+                        availablePositions.length > 0 ?
+                        <>
+                            <Label htmlFor="user_position">Cargo</Label>
+                            <FormOptions {...register("position")} onChange={(e)=>setUserData({...userData,position:e.target.value})}>
+                            <option key={"0"} value={""} >Selecionar</option>
+                                {availablePositions.map(position => (
+                                    <option key={position} value={position}>{position}</option>
+                                ))}
+                            </FormOptions>
 
-                    <Label htmlFor="user_position">Cargo</Label>
-                    <FormOptions {...register("position")}>
-                        {availablePositions.map(position => (
-                            <option key={position} value={position}>{position}</option>
-                        ))}
-                    </FormOptions>
-                    {availablePositions.length==0 && <ErroSpan>Selecione o setor antes</ErroSpan>}
+                        </>:
+                        <></>
+                    }
 
                     <Input type="submit" value={"Ativar usuario"} className="button" />
                 </form>
@@ -139,14 +156,12 @@ export const SolicitationsRegister = () => {
                                         <td key={key + 1}>{key + 1}</td>
                                         <td key={key + 2} className="name">{user.name}</td>
                                         <td key={key + 3} className="email"> {user.email}</td>
-                                        <td key={key + 4}><p className="button" onClick={() => HandleToggleModal(user.id as string,user.name, user.email)}>Ativar</p></td>
+                                        <td key={key + 4}><p className="button" onClick={() => HandleToggleModal(user.id as string, user.name, user.email)}>Ativar</p></td>
                                     </tr>
                                 ))
                             ) : (
                                 <p>No data available</p>
                             )}
-
-
                         </tbody>
                     </Table>
             }
