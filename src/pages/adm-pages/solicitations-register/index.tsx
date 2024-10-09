@@ -67,7 +67,7 @@ export const SolicitationsRegister = () => {
                 setModalErroData({...modalErroData,msg:"Usuario ativo com sucesso",on:true})
                 setToggleForm("none"); 
                  
-            }).catch((error) => {
+            }).catch(() => {
                 setModalErroData({...modalErroData,msg:"Erro: chame o suporte",on:true})
             });
         } else {
