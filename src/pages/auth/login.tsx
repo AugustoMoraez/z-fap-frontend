@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userLoginSchema, userLoginType } from "../../libs/schemas/authSchemas";
-import { BackgroundContainer, Container, Form, Logo, Menssage,Title } from "./style";
+import { BackgroundContainer, Container, Form, InputContainer, Logo, Menssage,Title } from "./style";
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -10,8 +10,10 @@ import { BaseApi } from "../../libs/fetchs/axiosConfig";
 import { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../libs/redux/user/userReducer";
-import { Input, Label } from "../../AppStyle";
-import logo from "../../../public/logo.png"
+import { Input } from "../../AppStyle";
+import logo from "../../../public/logo.png";
+import { CgProfile } from "react-icons/cg";
+import { CiLock } from "react-icons/ci";
 
 
 
@@ -80,27 +82,32 @@ export const Login = () => {
             <Logo src={logo}/>
             <Title><b>Z-FAP</b> <br /> <span>INTEGRAÇÃO</span></Title>
             <Form onSubmit={handleSubmit(handleLogin)}>
+                <InputContainer>
+                    <CgProfile/>
+                    <input 
+                    {...register("email")}
+                    type="email" 
+                    name="email" 
+                    id="email" 
+                    placeholder="email@email.com"
+                    />
                 
-                <Input 
-                {...register("email")}
-                type="email" 
-                name="email" 
-                id="email" 
-                placeholder="email@email.com"
-                />
-                {errors.email?.message && <Menssage>{errors.email?.message}</Menssage>}
+                </InputContainer>
             
+                {errors.email?.message && <Menssage>{errors.email?.message}</Menssage>}
 
 
-                
-                <Input 
-                {...register("password")}
-                type="password" 
-                name="password" 
-                id="password" 
-                placeholder="********" 
-                maxLength={8}
-                />
+                <InputContainer>
+                    <CiLock/>
+                    <input 
+                    {...register("password")}
+                    type="password" 
+                    name="password" 
+                    id="password" 
+                    placeholder="********" 
+                    maxLength={8}
+                    />
+                </InputContainer>
                 {errors.password?.message && <Menssage>{errors.password?.message}</Menssage>}
                
                 <Input type="submit" value="Entrar" className="button btn-form"/>

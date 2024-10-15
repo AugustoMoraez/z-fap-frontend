@@ -9,6 +9,34 @@ export const Container = styled.div`
     margin: auto;
     position:relative;
 `;
+
+export const InputContainer = styled.div`
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 20px;
+    border-radius: 60px;
+    border: 1px solid #E8E8E8;
+    background-color:#E8E8E8;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg{
+        font-size: 30px;
+        margin-left: 20px;
+    }
+    input{
+        height: 50px;
+        width: 100%;
+        max-width: 350px;
+        border-radius: 60px;
+        border: none;
+        padding: 10px;
+        background: none;
+        outline: none;
+    }
+`;
+
 export const BackgroundContainer = styled.div`
     width: 100%;
     min-height: 50vh;
@@ -18,6 +46,7 @@ export const BackgroundContainer = styled.div`
     position: absolute;
     border-bottom-left-radius:50px ;
     border-bottom-right-radius: 50px;
+    box-shadow: 2px 0px 20px #333;
 `;
 
 export const Title = styled.h1`
@@ -49,7 +78,7 @@ export const Form = styled.form`
     background-color: #fff;
     color: #333;
     border-radius: 10px;
-
+    box-shadow: 2px 0px 20px #333;
     display: flex;
     flex-direction: column;
     justify-content: center;
