@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Form,  Menssage } from "./style";
+import { BackgroundContainer, Container, Form,  Logo,  Menssage, Title } from "./style";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { userRegisterSchema, userRegisterType } from "../../libs/schemas/authSchemas";
@@ -8,8 +8,8 @@ import { Load } from "../../components/loader";
 import { AxiosError } from "axios";
 import { BaseApi } from "../../libs/fetchs/axiosConfig";
 import { modalErroData, ModalErro } from "../../components/modalErro";
-import { Input, Label, Title } from "../../AppStyle";
-
+import { Input, Label } from "../../AppStyle";
+import logo from "../../../public/logo.png";
 
 export const Register = () => {
 
@@ -102,8 +102,10 @@ export const Register = () => {
     return (
         <Container>
             <ModalErro msg={modalErroData.msg} on={modalErroData.on} func={modalErroData.func} />
+            <BackgroundContainer/>
+            <Logo src={logo}/>
+           
             <Form onSubmit={handleSubmit(handleRegisterUser)}>
-                <Title>Cadastre-se</Title>
 
                 <Label htmlFor="name">Nome</Label>
                 <Input
