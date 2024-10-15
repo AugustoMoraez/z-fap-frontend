@@ -50,3 +50,7 @@ export const TableHead = styled.thead`
     background-color: #15A4FA;
     color: white;
 `;
+export const Information = styled.p`
+   padding: 20px;
+   text-align: center;
+`;

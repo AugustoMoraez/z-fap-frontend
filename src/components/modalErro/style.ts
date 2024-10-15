@@ -6,11 +6,12 @@ type ContainerProp = {
 }
 
 export const ModalContainer = styled.div<ContainerProp>`
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background-color: rgba(0,0,0,0.7);
     position: absolute;
     z-index: 99;
+    top:0px ;
     display: ${(props)=> props.opacity };
 
 `;

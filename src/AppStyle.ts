@@ -27,6 +27,7 @@ export const Label = styled.label`
     font-weight: bold;
 `;
 export const Title = styled.h1`
+     
     text-align: center;
     color: #333;
     cursor:default;

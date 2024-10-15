@@ -1,5 +1,5 @@
 import { Load } from "../../../components/loader";
-import { Container, Table, TableHead } from "./style"
+import { Container, Information, Table, TableHead } from "./style"
 import { ModalForm } from "../../../components/modalForm";
 import { Label, Input, FormOptions } from "../../../AppStyle";
 import { useState } from "react";
@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { activateUserType, userActivateSchema } from "../../../libs/schemas/authSchemas";
 import { activateUserRegistration } from "../../../libs/fetchs/adm-pages/SolicitationsRegister/activateUserRegistration";
-import { modalErroData,ModalErro } from "../../../components/modalErro";
+import { modalErroData, ModalErro } from "../../../components/modalErro";
 
 export const SolicitationsRegister = () => {
     const { data: listSolicitations, isLoading } = useQuery<userType[]>("solicitationsRequest", getSolicitationsRequest, { retry: 1 });
@@ -20,11 +20,11 @@ export const SolicitationsRegister = () => {
 
     const [availablePositions, setAvailablePositions] = useState<string[]>([]);
     const [toggleForm, setToggleForm] = useState<"none" | "flex">("none")
-    
+
     const [modalErroData, setModalErroData] = useState<modalErroData>({
         msg: "",
         on: false,
-        func: () => setModalErroData({...modalErroData,on:false})
+        func: () => setModalErroData({ ...modalErroData, on: false })
     })
     const [userData, setUserData] = useState({
         id: "",
@@ -40,6 +40,7 @@ export const SolicitationsRegister = () => {
     const {
         register,
         handleSubmit,
+        formState: { errors }
     } = useForm<activateUserType>({
         resolver: zodResolver(userActivateSchema),
     });
@@ -64,16 +65,16 @@ export const SolicitationsRegister = () => {
                 position: data.position,
                 permissions: data.permissions
             }).then(() => {
-                setModalErroData({...modalErroData,msg:"Usuario ativo com sucesso",on:true})
-                setToggleForm("none"); 
+                setModalErroData({ ...modalErroData, msg: "Usuario ativo com sucesso", on: true })
+                setToggleForm("none");
                 window.location.reload();
-                 
+
             }).catch(() => {
-                setModalErroData({...modalErroData,msg:"Erro: chame o suporte",on:true})
+                setModalErroData({ ...modalErroData, msg: "Erro: chame o suporte", on: true })
             });
         } else {
-            
-            setModalErroData({...modalErroData,msg:"Selecione um setor novamente",on:true})
+
+            setModalErroData({ ...modalErroData, msg: "Selecione um setor novamente", on: true })
         }
     };
 
@@ -86,18 +87,22 @@ export const SolicitationsRegister = () => {
             setAvailablePositions([]);
         }
     };
-
+    const checkErro = () => {
+        if (errors) {
+            setModalErroData({
+                ...modalErroData,
+                msg: "Selecione um setor e um cargo",
+                on: !modalErroData.on
+            })
+        }
+        return null
+    }
     return (
         <Container>
-            <ModalErro msg={modalErroData.msg} on={modalErroData.on} func={modalErroData.func}/>
+            <ModalErro msg={modalErroData.msg} on={modalErroData.on} func={modalErroData.func} />
             <ModalForm display={toggleForm} subtitle="Registro de usuario" func={() => setToggleForm("none")}>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
-
-                    <>
-                    </>
-
-
                     <Input className="hidden" type="text" value={userData.id} {...register("id")} />
 
                     <Label htmlFor="user_name">Usuario</Label>
@@ -146,7 +151,7 @@ export const SolicitationsRegister = () => {
                             <></>
                     }
 
-                    <Input type="submit" value={"Ativar usuario"} className="button" />
+                    <Input type="submit" onClick={() => checkErro()} value={"Ativar usuario"} className="button" />
                 </form>
             </ModalForm>
 
@@ -165,18 +170,34 @@ export const SolicitationsRegister = () => {
                         <tbody>
 
 
-                            {listSolicitations ? (
-                                listSolicitations.map((user, key) => (
-                                    <tr key={key} className="row">
-                                        <td key={key + 1}>{key + 1}</td>
-                                        <td key={key + 2} className="name">{user.name}</td>
-                                        <td key={key + 3} className="email"> {user.email}</td>
-                                        <td key={key + 4}><p className="button" onClick={() => HandleToggleModal(user.id as string, user.name, user.email)}>Ativar</p></td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <p>No data available</p>
-                            )}
+                            {
+                                listSolicitations
+                                    ?
+                                    (
+                                        listSolicitations.length > 0 ?
+
+                                            listSolicitations.map((user, key) => (
+                                                <tr key={key} className="row">
+                                                    <td key={key + 1}>{key + 1}</td>
+                                                    <td key={key + 2} className="name">{user.name}</td>
+                                                    <td key={key + 3} className="email"> {user.email}</td>
+                                                    <td key={key + 4}><p className="button" onClick={() => HandleToggleModal(user.id as string, user.name, user.email)}>Ativar</p></td>
+                                                </tr>
+                                            ))
+
+                                            :
+                                            (<tr key="1" className="row">
+                                                <td key="2">{"1"}</td>
+                                                <td key="3" className="name">Sem solicitações</td>
+                                                <td key="4" className="email">Sem solicitações</td>
+                                                <td key="5"><p className="button" >Refresh</p></td>
+                                            </tr>)
+                                    )
+                                    :
+                                    (
+                                        <Information>No data available</Information>
+                                    )
+                            }
                         </tbody>
                     </Table>
             }

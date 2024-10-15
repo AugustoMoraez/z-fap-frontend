@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userLoginSchema, userLoginType } from "../../libs/schemas/authSchemas";
-import { Container, Form, Menssage } from "./style";
+import { BackgroundContainer, Container, Form, Logo, Menssage,Title } from "./style";
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -10,7 +10,8 @@ import { BaseApi } from "../../libs/fetchs/axiosConfig";
 import { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../libs/redux/user/userReducer";
-import { Input, Label, Title } from "../../AppStyle";
+import { Input, Label } from "../../AppStyle";
+import logo from "../../../public/logo.png"
 
 
 
@@ -75,9 +76,11 @@ export const Login = () => {
     return(
         <Container>
             <ModalErro msg={modalErroData.msg} on={modalErroData.on} func={modalErroData.func}/>
+            <BackgroundContainer/>
+            <Logo src={logo}/>
+            <Title><b>Z-FAP</b> <br /> <span>INTEGRAÇÃO</span></Title>
             <Form onSubmit={handleSubmit(handleLogin)}>
-                <Title>Z-Fap Manager</Title>
-                <Label htmlFor="email">Email</Label>
+                
                 <Input 
                 {...register("email")}
                 type="email" 
@@ -89,7 +92,7 @@ export const Login = () => {
             
 
 
-                <Label htmlFor="password">Senha</Label>
+                
                 <Input 
                 {...register("password")}
                 type="password" 
@@ -100,7 +103,7 @@ export const Login = () => {
                 />
                 {errors.password?.message && <Menssage>{errors.password?.message}</Menssage>}
                
-                <Input type="submit" value="Entrar" className="button"/>
+                <Input type="submit" value="Entrar" className="button btn-form"/>
 
                 <p>Ainda não possui cadastro ?</p>
                 <a onClick={()=>nav("/auth/register")}>Registre-se</a>

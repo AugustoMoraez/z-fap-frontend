@@ -25,6 +25,12 @@ export const GlobalStyle = createGlobalStyle`
             cursor: pointer;
         }
     }
+
+    .btn-form{
+        background-color: #000066;
+        border: none;
+        border-radius: 60px;
+    }
          
    
 
