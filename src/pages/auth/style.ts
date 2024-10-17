@@ -67,7 +67,7 @@ export const Title = styled.h1`
 `;
 
 export const Form = styled.form`
-    width: 100%;
+    width:85% ;
     max-width: 450px;
     padding: 20px;
     min-height: 350px;
@@ -92,7 +92,7 @@ export const Form = styled.form`
         cursor: pointer;
         color:royalblue;
     }
-
+    
 `;
 export const Logo = styled.img`
     width: 100%;
