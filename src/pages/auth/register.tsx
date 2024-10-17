@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BackgroundContainer, Container, Form,  Logo,  Menssage, Title } from "./style";
+import { BackgroundContainer, Container, Form,  Logo,  Menssage } from "./style";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { userRegisterSchema, userRegisterType } from "../../libs/schemas/authSchemas";
